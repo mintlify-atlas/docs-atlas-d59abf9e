@@ -1,0 +1,164 @@
+{
+  "projectType": "frontend",
+  "projectName": "Kokonut UI",
+  "projectDescription": "Open-source collection of stunning React components built with Tailwind CSS, shadcn/ui and Motion for modern web applications",
+  "theme": "willow",
+  "primaryColor": "#3bb34b",
+  "lightColor": "#050605",
+  "darkColor": "#c5c5c5",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "installation"
+            ]
+          },
+          {
+            "group": "AI Components",
+            "pages": [
+              "components/ai/ai-prompt",
+              "components/ai/ai-input-search",
+              "components/ai/ai-loading",
+              "components/ai/ai-text-loading",
+              "components/ai/ai-voice"
+            ]
+          },
+          {
+            "group": "Buttons",
+            "pages": [
+              "components/buttons/particle-button",
+              "components/buttons/gradient-button",
+              "components/buttons/hold-button",
+              "components/buttons/attract-button",
+              "components/buttons/social-button",
+              "components/buttons/switch-button",
+              "components/buttons/slide-text-button",
+              "components/buttons/command-button",
+              "components/buttons/v0-button"
+            ]
+          },
+          {
+            "group": "Cards",
+            "pages": [
+              "components/cards/liquid-glass-card",
+              "components/cards/bento-grid",
+              "components/cards/card-flip",
+              "components/cards/card-stack",
+              "components/cards/spotlight-cards",
+              "components/cards/carousel-cards",
+              "components/cards/mouse-effect-card",
+              "components/cards/apple-activity-card",
+              "components/cards/tweet-card",
+              "components/cards/currency-transfer"
+            ]
+          },
+          {
+            "group": "Text Effects",
+            "pages": [
+              "components/text/type-writer",
+              "components/text/shimmer-text",
+              "components/text/glitch-text",
+              "components/text/scroll-text",
+              "components/text/swoosh-text",
+              "components/text/sliced-text",
+              "components/text/matrix-text",
+              "components/text/dynamic-text"
+            ]
+          },
+          {
+            "group": "Backgrounds",
+            "pages": [
+              "components/backgrounds/beams-background",
+              "components/backgrounds/background-paths",
+              "components/backgrounds/shape-hero",
+              "components/backgrounds/flow-field"
+            ]
+          },
+          {
+            "group": "Navigation",
+            "pages": [
+              "components/navigation/smooth-tab",
+              "components/navigation/smooth-drawer",
+              "components/navigation/morphic-navbar",
+              "components/navigation/toolbar",
+              "components/navigation/profile-dropdown",
+              "components/navigation/team-selector"
+            ]
+          },
+          {
+            "group": "Inputs",
+            "pages": [
+              "components/inputs/file-upload",
+              "components/inputs/action-search-bar",
+              "components/inputs/avatar-picker"
+            ]
+          },
+          {
+            "group": "Loaders",
+            "pages": [
+              "components/loaders/loader"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Utilities",
+        "groups": [
+          {
+            "group": "Hooks",
+            "pages": [
+              "utilities/hooks/use-auto-resize-textarea",
+              "utilities/hooks/use-click-outside",
+              "utilities/hooks/use-copy-to-clipboard",
+              "utilities/hooks/use-debounce",
+              "utilities/hooks/use-file-input",
+              "utilities/hooks/use-intersection",
+              "utilities/hooks/use-mobile",
+              "utilities/hooks/use-tags"
+            ]
+          },
+          {
+            "group": "Helpers",
+            "pages": [
+              "utilities/cn-function"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "46+ production-ready React components with animations",
+    "Built with Tailwind CSS v4 and Motion (Framer Motion)",
+    "Easy installation via shadcn CLI",
+    "TypeScript support with full type safety",
+    "Customizable and themeable components",
+    "8 reusable React hooks for common patterns",
+    "Copy-paste friendly with minimal dependencies"
+  ],
+  "publicApiSurface": [
+    "ParticleButton",
+    "GradientButton",
+    "LiquidGlassCard",
+    "BentoGrid",
+    "TypeWriter",
+    "ShimmerText",
+    "BeamsBackground",
+    "FileUpload",
+    "AIPrompt",
+    "SmoothTab",
+    "useAutoResizeTextarea",
+    "useClickOutside",
+    "useCopyToClipboard",
+    "useDebounce",
+    "useFileInput",
+    "useIntersection",
+    "useMobile",
+    "useTags"
+  ]
+}
