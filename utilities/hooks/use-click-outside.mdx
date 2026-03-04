@@ -1,0 +1,96 @@
+---
+title: useClickOutside
+description: A hook that detects clicks outside a referenced element.
+icon: wrench
+---
+
+#
+
+
+A React hook that triggers a callback when a click occurs outside a specified element. Perfect for closing dropdowns, modals, and popovers.
+
+## Installation
+
+This hook can be installed via the CLI:
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+ 
+```bash tab="bun"
+bunx --bun shadcn@latest add @kokonutui/use-click-outside
+```
+ 
+```bash tab="npx"
+npx shadcn@latest add @kokonutui/use-click-outside
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add @kokonutui/use-click-outside
+```
+
+</Tabs>
+
+Or manually copy the hook from `/hooks/use-click-outside.ts` into your project.
+
+## Usage
+
+```tsx
+import { useRef, useState } from "react";
+import { useClickOutside } from "@/hooks/use-click-outside";
+
+function Dropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(dropdownRef, () => {
+    setIsOpen(false);
+  });
+
+  return (
+    <div ref={dropdownRef}>
+      <button onClick={() => setIsOpen(!isOpen)}>
+        Toggle Dropdown
+      </button>
+      {isOpen && (
+        <div className="absolute mt-2 bg-white shadow-lg rounded">
+          Dropdown content
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `ref` | `RefObject<HTMLElement>` | React ref pointing to the element to monitor |
+| `handler` | `() => void` | Callback function to execute when a click outside is detected |
+
+### Return Value
+
+This hook doesn't return any value. It sets up an effect that listens for clicks.
+
+## Features
+
+- **Simple API** - Just pass a ref and a handler
+- **Automatic cleanup** - Event listeners are properly removed on unmount
+- **Performance optimized** - Uses mousedown event for faster response
+
+## Use Cases
+
+- Closing dropdown menus when clicking outside
+- Dismissing modals and popovers
+- Closing mobile navigation menus
+- Deselecting items when clicking away
+- Hiding tooltips and context menus
+
+## Notes
+
+- The hook uses `mousedown` event instead of `click` for better UX
+- Make sure to memoize your handler function if it has dependencies to avoid unnecessary re-renders
+- The ref must be attached to a DOM element before the hook can function
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

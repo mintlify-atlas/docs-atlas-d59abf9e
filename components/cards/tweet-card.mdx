@@ -1,0 +1,182 @@
+---
+title: Tweet Card
+description: X (Twitter) style card with glassmorphism design, featuring author info, content, and optional reply thread.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/tweet-card"
+```
+
+## Usage
+
+```tsx
+import TweetCard from "@/components/kokonutui/tweet-card";
+
+export default function Example() {
+  return (
+    <TweetCard
+      authorName="Your Name"
+      authorHandle="yourhandle"
+      authorImage="https://your-image.jpg"
+      content={[
+        "Your tweet content here",
+        "Line 2 of content",
+        "Line 3 of content"
+      ]}
+      isVerified={true}
+      timestamp="Jan 18, 2025"
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `authorName` | `string` | `"Dorian"` | Author display name |
+| `authorHandle` | `string` | `"dorianbaffier"` | Twitter handle (without @) |
+| `authorImage` | `string` | - | URL to author profile image |
+| `content` | `string[]` | - | Array of content paragraphs |
+| `isVerified` | `boolean` | `true` | Show verification badge |
+| `timestamp` | `string` | `"Jan 18, 2025"` | Tweet timestamp |
+| `reply` | `ReplyProps` | - | Optional reply object |
+
+## ReplyProps Interface
+
+```tsx
+interface ReplyProps {
+  authorName: string;
+  authorHandle: string;
+  authorImage: string;
+  content: string;           // Single string for reply
+  isVerified?: boolean;
+  timestamp: string;         // Short format, e.g., "Jan 18"
+}
+```
+
+## Features
+
+- **Glassmorphism Design**: Multi-layer blur and gradients
+- **Verified Badge**: Blue checkmark for verified accounts
+- **Thread Support**: Display replies in-line
+- **Hover Effects**: Subtle opacity changes
+- **X Logo Button**: Interactive X icon
+- **Responsive Layout**: Adapts to container
+- **Link Integration**: Wraps in Next.js Link component
+- **Dark Mode**: Optimized for both themes
+
+## Example with Reply
+
+```tsx
+<TweetCard
+  authorName="Dorian"
+  authorHandle="dorianbaffier"
+  authorImage="https://pbs.twimg.com/profile_images/..."
+  content={[
+    "All components from KokonutUI can now be open in @v0 🎉",
+    "1. Click on 'Open in V0'",
+    "2. Customize with prompts",
+    "3. Deploy to your app"
+  ]}
+  isVerified={true}
+  timestamp="Jan 18, 2025"
+  reply={{
+    authorName: "shadcn",
+    authorHandle: "shadcn",
+    authorImage: "https://pbs.twimg.com/profile_images/...",
+    content: "Awesome.",
+    isVerified: true,
+    timestamp: "Jan 18"
+  }}
+/>
+```
+
+## Styling Breakdown
+
+### Outer Container
+```tsx
+// Glassmorphism layers
+bg-white/5 dark:bg-black/90
+backdrop-blur-xl backdrop-saturate-[180%]
+border border-black/10 dark:border-white/10
+shadow-[0_8px_16px_rgb(0_0_0_/_0.15)]
+```
+
+### Inner Card
+```tsx
+// Gradient overlay
+bg-linear-to-br from-black/[0.05] to-transparent
+dark:from-white/[0.08] dark:to-transparent
+backdrop-blur-md backdrop-saturate-150
+```
+
+### Hover Effect
+```tsx
+before:opacity-0 hover:before:opacity-100
+before:bg-linear-to-br before:from-black/[0.02]
+```
+
+## Layout Structure
+
+1. **Outer Wrapper**: Glass effect container with padding
+2. **Inner Card**: Gradient overlay with border
+3. **Header**: Profile image, name, handle, X button
+4. **Content**: Multi-line text content
+5. **Timestamp**: Bottom timestamp
+6. **Reply Section**: Optional bordered reply thread
+
+## Customization Tips
+
+### Remove Reply
+```tsx
+<TweetCard
+  // ... other props
+  // Simply omit the reply prop
+/>
+```
+
+### Single Line Content
+```tsx
+<TweetCard
+  content={["Single tweet content"]}
+  // ... other props
+/>
+```
+
+### Custom Link
+Modify the Link component's href:
+```tsx
+<Link href="https://x.com/your-handle/status/your-id" target="_blank">
+```
+
+## Icon Details
+
+### X Logo SVG
+- Size: 16x16px (4x4 Tailwind units)
+- Color: Inherits from parent (currentColor)
+- Viewbox: 0 0 1200 1227
+- Hover: Background color change
+
+### Verified Badge
+- Component: `VerifiedIcon` from lucide-react
+- Size: 16x16px
+- Color: Blue-400
+- Position: Next to author name
+
+## Dependencies
+
+- `lucide-react` (VerifiedIcon)
+- `next/link`
+- `@/lib/utils` (cn helper)
+
+## Accessibility
+
+- Semantic HTML structure
+- Alt text on profile images
+- Button type attributes
+- Keyboard navigation support
+- Focus visible states

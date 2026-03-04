@@ -1,0 +1,221 @@
+---
+title: Installation
+description: Step-by-step guide to installing and setting up Kokonut UI in your project
+icon: Download
+---
+
+## Getting Started
+
+Kokonut UI uses the shadcn CLI for component installation. This guide will walk you through setting up your project to use Kokonut UI components.
+
+<Info>
+Before you begin, make sure you have a React project set up with Tailwind CSS v4. Kokonut UI requires Tailwind CSS to work properly.
+</Info>
+
+## Installation Steps
+
+<Steps>
+
+### Initialize shadcn/ui
+
+First, initialize shadcn/ui in your project. This creates a `components.json` configuration file:
+
+<CodeGroup>
+
+```bash npm
+npx shadcn@latest init
+```
+
+```bash pnpm
+pnpm dlx shadcn@latest init
+```
+
+```bash bun
+bunx --bun shadcn@latest init
+```
+
+```bash yarn
+yarn dlx shadcn@latest init
+```
+
+</CodeGroup>
+
+<Note>
+The `components.json` file is optional if you're using the copy-paste method. However, we strongly recommend using the CLI for easier installation and dependency management.
+</Note>
+
+### Add Kokonut UI Registry
+
+Add the Kokonut UI registry to your `components.json` file:
+
+```json
+{
+  "registries": {
+    "@kokonutui": "https://kokonutui.com/r/{name}.json"
+  }
+}
+```
+
+This tells the shadcn CLI where to fetch Kokonut UI components from.
+
+### Install Utilities
+
+Many components use the `cn` utility function for merging Tailwind classes. Install it with:
+
+<CodeGroup>
+
+```bash npm
+npx shadcn@latest add https://kokonutui.com/r/utils.json
+```
+
+```bash pnpm
+pnpm dlx shadcn@latest add https://kokonutui.com/r/utils.json
+```
+
+```bash bun
+bunx --bun shadcn@latest add https://kokonutui.com/r/utils.json
+```
+
+```bash yarn
+yarn dlx shadcn@latest add https://kokonutui.com/r/utils.json
+```
+
+</CodeGroup>
+
+This creates a `lib/utils.ts` file in your project with the `cn` helper function.
+
+### Install Your First Component
+
+Now you're ready to install components! Let's add the `particle-button` component as an example:
+
+<CodeGroup>
+
+```bash npm
+npx shadcn@latest add @kokonutui/particle-button
+```
+
+```bash pnpm
+pnpm dlx shadcn@latest add @kokonutui/particle-button
+```
+
+```bash bun
+bunx --bun shadcn@latest add @kokonutui/particle-button
+```
+
+```bash yarn
+yarn dlx shadcn@latest add @kokonutui/particle-button
+```
+
+</CodeGroup>
+
+The CLI will automatically:
+- Download the component source code
+- Install any required dependencies (like lucide-react or shadcn/ui components)
+- Place the component in your `components/kokonutui/` directory
+
+### Use the Component
+
+Import and use the component in your app:
+
+```tsx
+import ParticleButton from "@/components/kokonutui/particle-button";
+
+export default function Page() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <ParticleButton />
+    </div>
+  );
+}
+```
+
+</Steps>
+
+## That's it! 🎉
+
+You've successfully set up Kokonut UI in your project. You can now browse the [component library](/components/buttons/particle-button) and install any component you need.
+
+<Tip>
+We use [lucide-react](https://lucide.dev/guide/installation) for most components that include icons, along with some [shadcn/ui](https://ui.shadcn.com/) components. These dependencies will be automatically installed when using the CLI.
+</Tip>
+
+## Additional Configuration
+
+### Optional Dependencies
+
+Some components require additional libraries for specific features (like animations or special effects). These dependencies are listed at the bottom of each component's documentation page. Make sure to install them to ensure the component works properly.
+
+### Monorepo Setup
+
+If you're working in a monorepo, use the `-c` flag to specify the path to your workspace:
+
+<CodeGroup>
+
+```bash npm
+npx shadcn@latest add @kokonutui/particle-button -c ./apps/www
+```
+
+```bash pnpm
+pnpm dlx shadcn@latest add @kokonutui/particle-button -c ./apps/www
+```
+
+```bash bun
+bunx --bun shadcn@latest add @kokonutui/particle-button -c ./apps/www
+```
+
+```bash yarn
+yarn dlx shadcn@latest add @kokonutui/particle-button -c ./apps/www
+```
+
+</CodeGroup>
+
+### Tailwind CSS v4 Setup
+
+All components are built with Tailwind CSS v4. Make sure you have it properly configured in your project. Follow the [official Tailwind CSS v4 installation guide](https://tailwindcss.com/installation/framework-guides/nextjs) for your framework.
+
+## Copy and Paste Alternative
+
+<Note>
+While we provide a convenient 'copy' button for viewing component code, we strongly recommend using the CLI for installation. The CLI ensures all necessary files and dependencies are included automatically.
+</Note>
+
+If you prefer not to use the CLI, you can copy component code directly from the documentation pages. However, you'll need to:
+
+1. Manually install all dependencies
+2. Create the necessary file structure
+3. Copy any required utility functions or sub-components
+
+## Troubleshooting
+
+### Component not found
+
+Make sure you've added the Kokonut UI registry to your `components.json` file and that the registry URL is correct.
+
+### Missing dependencies
+
+If you encounter missing dependency errors, check the component's documentation page for a list of required packages and install them manually.
+
+### Path alias issues
+
+Kokonut UI uses the `@/*` path alias. Ensure your `tsconfig.json` or `jsconfig.json` is configured correctly:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
+
+## What's Next?
+
+<Card title="Browse Components" icon="grid" href="/components/buttons/particle-button">
+Explore the complete collection of 46+ components with live previews and code examples.
+</Card>
+
+<Card title="Customization Guide" icon="palette" href="/installation">
+Learn how to customize components to match your design system.
+</Card>

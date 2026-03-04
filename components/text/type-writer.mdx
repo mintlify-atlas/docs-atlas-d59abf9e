@@ -1,0 +1,89 @@
+---
+title: "TypeWriter"
+description: "Animated typewriter effect with customizable sequences, speeds, and natural typing variance"
+icon: "font"
+---
+
+A dynamic typewriter component that simulates human typing with customizable sequences, deletion effects, and natural variance.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/type-writer
+```
+
+## Usage
+
+```tsx
+import TypewriterTitle from "@/components/kokonutui/type-writer";
+
+export default function Example() {
+  return (
+    <TypewriterTitle
+      sequences={[
+        { text: "Hello World", deleteAfter: true },
+        { text: "Welcome", deleteAfter: false }
+      ]}
+      typingSpeed={50}
+      autoLoop={true}
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="sequences" type="TypewriterSequence[]" default="[{ text: 'Typewriter', deleteAfter: true }, { text: 'Multiple Words', deleteAfter: true }, { text: 'Auto Loop', deleteAfter: false }]">
+  Array of text sequences to display
+</ParamField>
+
+<ParamField path="typingSpeed" type="number" default="50">
+  Speed of typing in milliseconds per character
+</ParamField>
+
+<ParamField path="startDelay" type="number" default="200">
+  Initial delay before animation starts (ms)
+</ParamField>
+
+<ParamField path="autoLoop" type="boolean" default="true">
+  Whether to automatically loop through sequences
+</ParamField>
+
+<ParamField path="loopDelay" type="number" default="1000">
+  Delay before restarting the loop (ms)
+</ParamField>
+
+<ParamField path="deleteSpeed" type="number" default="30">
+  Speed of character deletion (ms)
+</ParamField>
+
+<ParamField path="pauseBeforeDelete" type="number" default="1000">
+  Pause duration before deleting text (ms)
+</ParamField>
+
+<ParamField path="naturalVariance" type="boolean" default="true">
+  Add natural human-like typing variance
+</ParamField>
+
+## TypewriterSequence Type
+
+```tsx
+type TypewriterSequence = {
+  text: string;           // Text to display
+  deleteAfter?: boolean;  // Delete text after displaying
+  pauseAfter?: number;    // Custom pause duration (ms)
+};
+```
+
+## Features
+
+- **Natural Typing**: Simulates human typing with random pauses and speed variations
+- **Custom Sequences**: Define multiple text sequences with individual behaviors
+- **Auto Loop**: Automatically cycle through sequences
+- **Blinking Cursor**: Animated cursor effect
+- **Flexible Timing**: Customizable typing, deletion, and pause speeds
+
+## Dependencies
+
+- `motion/react` - Animation library
+- `react` - Hooks (useState, useRef, useEffect)

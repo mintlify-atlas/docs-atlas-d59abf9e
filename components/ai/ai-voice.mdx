@@ -1,0 +1,254 @@
+---
+title: AI Voice
+description: Voice mode.
+icon: Mic
+full: false
+---
+
+#
+
+
+import AI_Voice from "@/components/kokonutui/ai-voice";
+
+<Preview link="ai-voice">
+    <AI_Voice />
+</Preview>
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/ai-voice
+```
+
+## Overview
+
+An elegant voice recording interface component that visualizes audio input with animated waveform bars, a recording timer, and smooth transitions. Perfect for voice-enabled AI applications.
+
+## Features
+
+- Animated recording toggle button
+- Real-time waveform visualization with 48 animated bars
+- Recording timer with mm:ss format
+- Smooth state transitions
+- Click to start/stop recording
+- Auto-demo mode (can be disabled)
+- Dark mode support
+- Fully responsive design
+
+## Props
+
+This component doesn't expose props - it's a complete demo implementation. The demo mode automatically cycles recording states for demonstration purposes.
+
+## Component Structure
+
+### State Management
+
+```typescript
+const [submitted, setSubmitted] = useState(false); // Recording state
+const [time, setTime] = useState(0);               // Timer in seconds
+const [isClient, setIsClient] = useState(false);   // Client-side check
+const [isDemo, setIsDemo] = useState(true);        // Demo mode toggle
+```
+
+### Key Features
+
+**Recording Timer**: Automatically counts up while recording, formatted as "00:00".
+
+**Waveform Visualization**: 48 vertical bars that animate with random heights when recording.
+
+**Demo Mode**: Automatically starts/stops recording for demonstration. Clicking disables demo mode.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import AI_Voice from "@/components/kokonutui/ai-voice";
+
+export default function VoiceChat() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <AI_Voice />
+    </div>
+  );
+}
+```
+
+### Integration with Audio Recording
+
+```tsx
+import { useState } from "react";
+import AI_Voice from "@/components/kokonutui/ai-voice";
+
+export default function VoiceRecorder() {
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+
+  const handleStartRecording = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+    
+    mediaRecorder.start();
+    setIsRecording(true);
+
+    mediaRecorder.ondataavailable = (event) => {
+      setAudioBlob(event.data);
+    };
+  };
+
+  const handleStopRecording = () => {
+    // Stop mediaRecorder
+    setIsRecording(false);
+  };
+
+  return <AI_Voice />;
+}
+```
+
+## Animation Details
+
+### Recording Button
+
+Toggle between microphone icon and spinning square:
+
+```tsx
+{submitted ? (
+  <div
+    className="w-6 h-6 rounded-sm animate-spin bg-black dark:bg-white"
+    style={{ animationDuration: "3s" }}
+  />
+) : (
+  <Mic className="w-6 h-6" />
+)}
+```
+
+### Waveform Bars
+
+Each bar animates with a unique height and delay:
+
+```typescript
+style={{
+  height: `${20 + Math.random() * 80}%`,
+  animationDelay: `${i * 0.05}s`,
+}}
+```
+
+When inactive, bars collapse to minimal height:
+
+```typescript
+className={cn(
+  "w-0.5 rounded-full transition-all duration-300",
+  submitted
+    ? "bg-black/50 dark:bg-white/50 animate-pulse"
+    : "bg-black/10 dark:bg-white/10 h-1"
+)}
+```
+
+### Timer Format
+
+Formats seconds into MM:SS display:
+
+```typescript
+const formatTime = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, "0")}:${secs
+    .toString()
+    .padStart(2, "0")}`;
+};
+```
+
+## Customization
+
+### Disable Demo Mode
+
+To use this component with real recording functionality, remove the demo effect:
+
+```typescript
+// Remove this useEffect block
+useEffect(() => {
+  if (!isDemo) return;
+  // ... demo animation code
+}, [isDemo]);
+
+// Set isDemo to false by default
+const [isDemo, setIsDemo] = useState(false);
+```
+
+### Change Waveform Appearance
+
+```typescript
+// Adjust number of bars
+{[...Array(32)].map((_, i) => (  // Changed from 48 to 32
+  <div key={i} />
+))}
+
+// Modify bar colors
+className="bg-blue-500 dark:bg-blue-400"
+```
+
+### Customize Button Size
+
+```typescript
+<button className="w-20 h-20 rounded-xl">  // Larger button
+  {submitted ? (
+    <div className="w-8 h-8" />  // Larger spinner
+  ) : (
+    <Mic className="w-8 h-8" />  // Larger icon
+  )}
+</button>
+```
+
+## Real Implementation Notes
+
+To implement actual voice recording:
+
+1. **Request Microphone Permission**
+   ```typescript
+   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+   ```
+
+2. **Create MediaRecorder**
+   ```typescript
+   const mediaRecorder = new MediaRecorder(stream);
+   ```
+
+3. **Handle Recording Data**
+   ```typescript
+   mediaRecorder.ondataavailable = (event) => {
+     // Process audio blob
+   };
+   ```
+
+4. **Send to AI Service**
+   ```typescript
+   const formData = new FormData();
+   formData.append('audio', audioBlob);
+   await fetch('/api/transcribe', { method: 'POST', body: formData });
+   ```
+
+## Use Cases
+
+1. **Voice Chat**: AI conversation interfaces
+2. **Voice Commands**: Voice-controlled applications
+3. **Transcription**: Speech-to-text services
+4. **Voice Notes**: Recording and storing audio
+5. **Language Learning**: Pronunciation practice
+
+## Dependencies
+
+- `lucide-react` - Mic icon
+- React hooks (useState, useEffect)
+- `@/lib/utils` - cn utility
+
+## Browser Compatibility
+
+For real audio recording, ensure browser support for:
+- `navigator.mediaDevices.getUserMedia()` (most modern browsers)
+- `MediaRecorder API` (Chrome 47+, Firefox 25+, Safari 14.1+)
+
+## Related Components
+
+- [AI Prompt](/components/ai/ai-prompt) - Text-based AI input
+- [AI Loading](/components/ai/ai-loading) - Loading state for processing
+- [AI Text Loading](/components/ai/ai-text-loading) - Simple loading indicator

@@ -1,0 +1,62 @@
+---
+title: Command Button
+description: A keyboard shortcut button with command icon and animated gradient sweep effect.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/command-button
+```
+
+## Usage
+
+```tsx
+import CommandButton from "@/components/kokonutui/command-button";
+
+export default function Example() {
+  return (
+    <div className="flex gap-2">
+      <CommandButton>CMD + K</CommandButton>
+      <CommandButton>CMD + P</CommandButton>
+      <CommandButton>⌘ + Shift + P</CommandButton>
+    </div>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | `"CMD + K"` | Keyboard shortcut text to display |
+| `className` | `string` | - | Additional CSS classes |
+
+Extends all standard HTML button attributes.
+
+## Dependencies
+
+- `lucide-react` - For the Command icon
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Command (⌘) icon with hover animations
+- Icon rotates slightly and scales on hover
+- Gradient sweep animation effect
+- Subtle gradient background
+- Border hover state
+- Active scale feedback
+- Dark mode support
+- Perfect for displaying keyboard shortcuts
+- Clean, minimal design
+
+## Use Cases
+
+- Command palette triggers
+- Keyboard shortcut indicators
+- Quick action buttons
+- Search shortcuts
+- Modal triggers

@@ -1,0 +1,165 @@
+---
+title: Mouse Effect Card
+description: Interactive card with animated dot pattern that responds to mouse movement with repulsion physics and dynamic opacity.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/mouse-effect-card"
+```
+
+## Usage
+
+```tsx
+import MouseEffectCard from "@/components/kokonutui/mouse-effect-card";
+
+export default function Example() {
+  return (
+    <MouseEffectCard
+      title="Acme"
+      subtitle="Build interfaces with interactive patterns"
+      primaryCtaText="Get Started"
+      secondaryCtaText="View Docs"
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes |
+| `children` | `ReactNode` | - | Custom content (overrides subtitle) |
+| `dotSize` | `number` | `2` | Size of each dot in pixels |
+| `dotSpacing` | `number` | `16` | Spacing between dots |
+| `repulsionRadius` | `number` | `80` | Mouse repulsion effect radius |
+| `repulsionStrength` | `number` | `20` | Strength of repulsion force |
+| `title` | `string` | `"Acme"` | Main card title |
+| `subtitle` | `string` | - | Card subtitle/description |
+| `topText` | `string` | `"Case Study"` | Top-left label text |
+| `topSubtext` | `string` | - | Secondary top text |
+| `primaryCtaText` | `string` | `"Get Started"` | Primary button text |
+| `primaryCtaUrl` | `string` | `"#"` | Primary button URL |
+| `secondaryCtaText` | `string` | `"View Docs"` | Secondary button text |
+| `secondaryCtaUrl` | `string` | `"#"` | Secondary button URL |
+| `footerText` | `string` | `"We do it all"` | Bottom footer text |
+
+## Features
+
+- **Physics-Based Interaction**: Dots repel from mouse cursor
+- **Spring Animations**: Smooth spring physics for dot movement
+- **Dynamic Opacity**: Dots brighten near cursor
+- **Pulsing Effect**: Continuous opacity animation
+- **Edge Fade**: Dots fade toward card edges
+- **Responsive Layout**: Adapts to container size
+- **Frosted Glass**: Blur effects on text labels
+- **Custom CTA Buttons**: Configurable call-to-action buttons
+
+## Physics Configuration
+
+### Spring Settings
+```tsx
+const SPRING_CONFIG = {
+  stiffness: 300,
+  damping: 30,
+  mass: 0.5
+};
+```
+
+### Repulsion Calculation
+1. Calculate distance between dot and cursor
+2. If within `repulsionRadius`, apply force
+3. Force strength: `(1 - distance/radius) * repulsionStrength`
+4. Direction: Angle from cursor to dot
+5. Apply spring physics for smooth movement
+
+## Dot Generation
+
+- **Grid Layout**: Evenly spaced grid pattern
+- **Edge Culling**: Probabilistic removal near edges
+- **Opacity Variation**: 3 opacity levels (0.3, 0.5, 0.7)
+- **Center Focus**: More dots toward center
+- **Distance Factor**: Opacity based on distance from center
+
+## Customization Examples
+
+### Minimal Configuration
+```tsx
+<MouseEffectCard
+  title="Simple"
+  subtitle="Clean and minimal"
+  topText=""
+  footerText=""
+  secondaryCtaText=""
+/>
+```
+
+### Dense Dots
+```tsx
+<MouseEffectCard
+  dotSize={3}
+  dotSpacing={12}
+  repulsionRadius={120}
+  repulsionStrength={30}
+/>
+```
+
+### Custom Content
+```tsx
+<MouseEffectCard title="Custom">
+  <div>
+    <p>Your custom content here</p>
+    <ul>
+      <li>Feature 1</li>
+      <li>Feature 2</li>
+    </ul>
+  </div>
+</MouseEffectCard>
+```
+
+## Animation Details
+
+### Opacity Pulsing
+- **Duration**: 0.8-1.0s (varies per dot)
+- **Pattern**: min → max → min
+- **Easing**: Cubic bezier [0.4, 0, 0.2, 1]
+- **Delay**: Staggered based on dot index
+- **Infinite**: Continuous loop
+
+### Proximity Boost
+- **Multiplier**: 1.2x radius
+- **Boost Amount**: +0.8 opacity
+- **Transition**: Smooth spring (150 stiffness, 25 damping)
+
+## Performance Optimization
+
+- **Transform GPU**: Hardware acceleration enabled
+- **Will Change**: Transform property marked
+- **Memo Components**: Dot components memoized
+- **ResizeObserver**: Efficient size updates
+- **Spring Physics**: Optimized calculations
+
+## Responsive Behavior
+
+- **Auto-resize**: Dots regenerate on container resize
+- **Mouse Leave**: Dots return to base positions
+- **Touch Support**: Works on touch devices (static)
+- **Container Relative**: All positions relative to card
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `@/components/ui/button` (shadcn)
+- `@/components/ui/card` (shadcn)
+- `@/lib/utils` (cn helper)
+
+## Technical Notes
+
+- Uses `useMotionValue` for real-time mouse tracking
+- `useTransform` for physics calculations
+- `useSpring` for smooth interpolation
+- ResizeObserver for responsive dot generation
+- Unique ID per dot for React keys

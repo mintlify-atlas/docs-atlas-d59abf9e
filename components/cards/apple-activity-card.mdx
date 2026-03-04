@@ -1,0 +1,203 @@
+---
+title: Apple Activity Card
+description: Activity rings visualization inspired by Apple's fitness tracking interface with animated progress circles.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/apple-activity-card"
+```
+
+## Usage
+
+```tsx
+import AppleActivityCard from "@/components/kokonutui/apple-activity-card";
+
+export default function Example() {
+  return <AppleActivityCard title="Activity Rings" />;
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `"Activity Rings"` | Card title |
+| `className` | `string` | - | Additional CSS classes |
+
+## Features
+
+- **Three Activity Rings**: Move, Exercise, Stand
+- **Progress Animation**: Smooth SVG stroke animation
+- **Gradient Colors**: Linear gradients for each ring
+- **Staggered Entrance**: Sequential animation with delays
+- **Real-time Data**: Current/target values displayed
+- **Responsive Layout**: Adapts to container size
+- **Ring Sizing**: Nested concentric circles
+
+## Activity Data
+
+### Default Activities
+
+```tsx
+const activities: ActivityData[] = [
+  {
+    label: "MOVE",
+    value: 85,              // Progress percentage
+    color: "#FF2D55",       // Pink/red
+    size: 200,              // Ring diameter
+    current: 479,           // Current calories
+    target: 800,            // Target calories
+    unit: "CAL"
+  },
+  {
+    label: "EXERCISE",
+    value: 60,
+    color: "#A3F900",       // Lime green
+    size: 160,
+    current: 24,            // Current minutes
+    target: 30,
+    unit: "MIN"
+  },
+  {
+    label: "STAND",
+    value: 30,
+    color: "#04C7DD",       // Cyan
+    size: 120,
+    current: 6,             // Current hours
+    target: 12,
+    unit: "HR"
+  }
+];
+```
+
+## ActivityData Interface
+
+```tsx
+interface ActivityData {
+  label: string;          // Activity name
+  value: number;          // Progress percentage (0-100)
+  color: string;          // Base color (hex)
+  size: number;           // Ring diameter in pixels
+  current: number;        // Current value
+  target: number;         // Target value
+  unit: string;          // Unit label (CAL, MIN, HR)
+}
+```
+
+## Animation Configuration
+
+### Ring Animation
+```tsx
+{
+  duration: 1.8,
+  delay: index * 0.2,     // Stagger delay
+  ease: "easeInOut"
+}
+```
+
+### Entrance Animation
+```tsx
+{
+  initial: { opacity: 0, scale: 0.8 },
+  animate: { opacity: 1, scale: 1 },
+  duration: 0.8,
+  delay: index * 0.2
+}
+```
+
+## SVG Technical Details
+
+### Circle Calculation
+```tsx
+const strokeWidth = 16;
+const radius = (size - strokeWidth) / 2;
+const circumference = radius * 2 * Math.PI;
+const progress = ((100 - value) / 100) * circumference;
+```
+
+### Gradient Definition
+```tsx
+<linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+  <stop offset="0%" stopColor={baseColor} />
+  <stop offset="100%" stopColor={lighterColor} />
+</linearGradient>
+```
+
+## Customization Example
+
+```tsx
+import AppleActivityCard from "@/components/kokonutui/apple-activity-card";
+
+// Modify the activities array in the component
+const customActivities = [
+  {
+    label: "STEPS",
+    value: 75,
+    color: "#FF6B00",
+    size: 200,
+    current: 7500,
+    target: 10000,
+    unit: "STEPS"
+  },
+  {
+    label: "WATER",
+    value: 50,
+    color: "#0099FF",
+    size: 160,
+    current: 4,
+    target: 8,
+    unit: "CUPS"
+  },
+  {
+    label: "SLEEP",
+    value: 90,
+    color: "#9B51E0",
+    size: 120,
+    current: 7.2,
+    target: 8,
+    unit: "HRS"
+  }
+];
+```
+
+## Styling Details
+
+### Ring Colors
+- **Move**: Pink (#FF2D55) → Light Pink (#FF6B8B)
+- **Exercise**: Lime (#A3F900) → Yellow-Green (#C5FF4D)
+- **Stand**: Cyan (#04C7DD) → Light Cyan (#4DDFED)
+
+### Ring Stroke
+- Width: 16px
+- Cap: Rounded
+- Background: Semi-transparent gray
+- Drop shadow on active ring
+
+## Layout
+
+### Ring Container
+- Width: 180px
+- Height: 180px
+- Centered alignment
+- Concentric positioning
+
+### Details Panel
+- Positioned to right of rings
+- Vertical stack layout
+- Color-coded labels
+- Current/Target ratio display
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `@/lib/utils` (cn helper)
+
+## Accessibility
+
+- ARIA labels on SVG elements
+- Semantic heading structure
+- Screen reader friendly values
+- Reduced motion support

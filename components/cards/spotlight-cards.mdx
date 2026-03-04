@@ -1,0 +1,150 @@
+---
+title: Spotlight Cards
+description: Feature grid with aurora ambient glow, magnetic 3D card tilt, focus-dim siblings, and interactive hover effects.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/spotlight-cards"
+```
+
+## Usage
+
+```tsx
+import SpotlightCards from "@/components/kokonutui/spotlight-cards";
+
+export default function Example() {
+  return (
+    <SpotlightCards
+      eyebrow="Features"
+      heading="Everything you need"
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `SpotlightItem[]` | `DEFAULT_ITEMS` | Array of feature items to display |
+| `eyebrow` | `string` | `"Features"` | Small text above heading |
+| `heading` | `string` | `"Everything you need"` | Main section heading |
+| `className` | `string` | - | Additional CSS classes |
+
+## SpotlightItem Interface
+
+```tsx
+interface SpotlightItem {
+  icon: LucideIcon;        // Icon component from lucide-react
+  title: string;           // Feature title
+  description: string;     // Feature description
+  color: string;          // Hex color for icon and effects
+}
+```
+
+## Features
+
+- **3D Magnetic Tilt**: Cards tilt based on mouse position
+- **Focus Dimming**: Non-hovered cards dim when one is hovered
+- **Aurora Glow**: Radial gradient effects with custom colors
+- **Shimmer Sweep**: Animated light sweep on hover
+- **Accent Lines**: Bottom line accent that expands on hover
+- **Icon Badges**: Colored icon containers with shadows
+- **Spring Physics**: Smooth spring-based animations
+- **Responsive Grid**: 2-column mobile, 3-column desktop
+
+## Default Items
+
+Includes 6 default feature cards:
+- **Instant** (Zap icon, amber)
+- **Secure** (Lock icon, blue)
+- **Global** (Globe icon, green)
+- **Developer first** (Code icon, violet)
+- **Scalable** (Cpu icon, cyan)
+- **Serverless** (Cloud icon, pink)
+
+## Customization Example
+
+```tsx
+import { Rocket, Shield } from "lucide-react";
+
+const customItems = [
+  {
+    icon: Rocket,
+    title: "Fast Launch",
+    description: "Deploy in seconds, not hours",
+    color: "#f97316"
+  },
+  {
+    icon: Shield,
+    title: "Protected",
+    description: "Enterprise-grade security",
+    color: "#3b82f6"
+  }
+];
+
+<SpotlightCards items={customItems} />
+```
+
+## Animation Configuration
+
+### Tilt Spring
+```tsx
+const TILT_SPRING = {
+  stiffness: 300,
+  damping: 28
+};
+```
+
+### Glow Spring
+```tsx
+const GLOW_SPRING = {
+  stiffness: 180,
+  damping: 22
+};
+```
+
+## Styling Details
+
+### Light Mode
+- White card background
+- Subtle shadows
+- Gray borders
+- Dot grid pattern background
+
+### Dark Mode
+- Dark background (`#06060f`)
+- Transparent card backgrounds
+- Enhanced glow effects
+- No dot grid
+
+## Technical Implementation
+
+### 3D Tilt Calculation
+1. Track normalized mouse position (0-1)
+2. Transform to rotation angles (-9° to +9°)
+3. Apply spring physics for smooth movement
+4. Reset to center on mouse leave
+
+### Glow Effect
+- Static tint always visible (14% opacity)
+- Hover glow layer (46% opacity)
+- Radial gradient positioned at 20% 20%
+- Smooth opacity spring animation
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `lucide-react` (Icons)
+- `@/lib/utils` (cn helper)
+
+## Accessibility
+
+- Semantic HTML structure
+- ARIA labels on icon badges
+- Keyboard navigation support
+- Focus visible states
+- Reduced motion support

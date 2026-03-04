@@ -1,0 +1,84 @@
+---
+title: "Dynamic Text"
+description: "Rapidly cycling text that displays greetings in multiple languages"
+icon: "font"
+---
+
+A text component that rapidly cycles through different greetings in various languages before settling on the final one.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/dynamic-text
+```
+
+## Usage
+
+```tsx
+import DynamicText from "@/components/kokonutui/dynamic-text";
+
+export default function Example() {
+  return <DynamicText />;
+}
+```
+
+## Props
+
+This component uses a predefined set of greetings and does not accept props for customization.
+
+## Features
+
+- **Rapid Cycling**: Quickly transitions through multiple greetings
+- **Multi-Language**: Shows greetings in 8 different languages
+- **Auto-Complete**: Stops on the final greeting
+- **Smooth Transitions**: Uses AnimatePresence for exit animations
+- **Visual Indicator**: Includes a decorative dot next to each greeting
+
+## Default Greetings
+
+The component cycles through:
+
+1. Hello (English)
+2. こんにちは (Japanese)
+3. Bonjour (French)
+4. Hola (Spanish)
+5. 안녕하세요 (Korean)
+6. Ciao (Italian)
+7. Hallo (German)
+8. こんにちは (Japanese)
+
+## Animation Details
+
+- **Interval**: 300ms between transitions
+- **Entrance**: Slides up with fade in (y: 20 → 0)
+- **Exit**: Slides up further and fades out (y: 0 → -100)
+- **Duration**: 0.2s per transition
+
+## How It Works
+
+1. Component starts with first greeting
+2. Every 300ms, advances to next greeting
+3. Continues until reaching the final greeting
+4. Animation stops, displaying the last greeting
+
+## Styling
+
+The component is styled for a clean, modern look:
+
+- Centered content with fixed dimensions
+- Medium-weight font at text-2xl size
+- Decorative dot indicator
+- Adapts to light/dark mode
+
+## Use Cases
+
+- Landing page hero sections
+- Welcome messages
+- Multilingual site introductions
+- Loading or transition states
+- Brand personality displays
+
+## Dependencies
+
+- `motion/react` - Animation library and AnimatePresence
+- `react` - Hooks (useState, useEffect)

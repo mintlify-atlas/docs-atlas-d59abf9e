@@ -1,0 +1,181 @@
+---
+title: useIntersection
+description: A hook that tracks which elements are visible in the viewport.
+icon: wrench
+---
+
+#
+
+
+A React hook that uses the Intersection Observer API to track which elements from a list are currently visible in the viewport.
+
+## Installation
+
+Manually copy the hook from `/hooks/use-intersection.ts` into your project.
+
+## Usage
+
+```tsx
+import { useIntersection } from "@/hooks/use-intersection";
+
+function ScrollSpy() {
+  const items = [
+    { id: "section-1", title: "Introduction" },
+    { id: "section-2", title: "Features" },
+    { id: "section-3", title: "Usage" },
+  ];
+
+  const { visibleIds } = useIntersection(items, {
+    threshold: 0.5,
+    prefix: "section",
+  });
+
+  return (
+    <div>
+      <nav>
+        {items.map(item => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className={visibleIds.has(item.id) ? "text-blue-500" : ""}
+          >
+            {item.title}
+          </a>
+        ))}
+      </nav>
+      <main>
+        {items.map(item => (
+          <section key={item.id} id={`section-${item.id}`}>
+            <h2>{item.title}</h2>
+            {/* Content */}
+          </section>
+        ))}
+      </main>
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `items` | `{ id: string \| number }[]` | Array of items with id property to track |
+| `options` | `UseIntersectionOptions` | Configuration options |
+
+### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `threshold` | `number` | `0.2` | Percentage of element that must be visible (0-1) |
+| `prefix` | `string` | `undefined` | Prefix added to IDs in the DOM (e.g., if prefix is "section", element IDs should be "section-{id}") |
+
+### Return Value
+
+Returns an object with:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `visibleIds` | `Set<string \| number>` | Set of IDs for currently visible elements |
+
+## Features
+
+- **Multiple element tracking** - Monitor visibility of multiple elements simultaneously
+- **Configurable threshold** - Control how much of an element must be visible
+- **Prefix support** - Handle prefixed element IDs automatically
+- **Performance optimized** - Uses native Intersection Observer API
+- **Type-safe** - Supports both string and numeric IDs
+
+## Example: Table of Contents
+
+```tsx
+function TableOfContents() {
+  const sections = [
+    { id: 1, title: "Getting Started" },
+    { id: 2, title: "Installation" },
+    { id: 3, title: "Configuration" },
+  ];
+
+  const { visibleIds } = useIntersection(sections, {
+    threshold: 0.3,
+    prefix: "toc",
+  });
+
+  return (
+    <aside className="fixed right-0 top-20">
+      <ul>
+        {sections.map(section => (
+          <li key={section.id}>
+            <a
+              href={`#toc-${section.id}`}
+              className={`
+                ${visibleIds.has(section.id) ? "font-bold" : ""}
+              `}
+            >
+              {section.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+}
+```
+
+## Example: Scroll Animations
+
+```tsx
+function AnimatedList() {
+  const items = Array.from({ length: 10 }, (_, i) => ({ id: i }));
+  const { visibleIds } = useIntersection(items, { threshold: 0.5 });
+
+  return (
+    <div>
+      {items.map(item => (
+        <div
+          key={item.id}
+          id={String(item.id)}
+          className={`
+            transition-opacity duration-500
+            ${visibleIds.has(item.id) ? "opacity-100" : "opacity-0"}
+          `}
+        >
+          Item {item.id}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## Use Cases
+
+- Scroll spy navigation highlighting
+- Table of contents with active section tracking
+- Lazy loading content on scroll
+- Scroll-triggered animations
+- Analytics tracking for viewed sections
+- Progress indicators for long pages
+
+## Configuration
+
+### Threshold
+
+- `0.2` (default) - Element is considered visible when 20% is in viewport
+- `0.5` - Element is visible when 50% is in viewport
+- `1.0` - Element must be fully visible
+
+### Root Margin
+
+The hook uses a fixed root margin of `-50px 0px`, which creates a 50px buffer at the top and bottom of the viewport. This ensures elements are marked visible slightly before/after they enter the viewport.
+
+## Notes
+
+- **Client-side only** - Uses `"use client"` directive, requires client component
+- **ID format** - Element IDs in DOM must be `{prefix}-{id}` if prefix is provided
+- **Automatic cleanup** - Observer is properly disconnected on unmount
+- **Number parsing** - Automatically parses numeric IDs from strings
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

@@ -1,0 +1,89 @@
+---
+title: "Swoosh Text"
+description: "Nike-inspired text with layered shadow effects that disappear on hover"
+icon: "font"
+---
+
+A text component with dramatic layered shadows that create a swoosh effect, inspired by Nike's branding.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/swoosh-text
+```
+
+## Usage
+
+```tsx
+import SwooshText from "@/components/kokonutui/swoosh-text";
+
+export default function Example() {
+  return (
+    <SwooshText 
+      text="Hover Me" 
+      className="text-6xl"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="text" type="string" default="'Hover Me'">
+  The text content to display
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  Additional CSS classes for styling
+</ParamField>
+
+<ParamField path="shadowColors" type="object" optional>
+  Custom color scheme for shadow layers
+</ParamField>
+
+## Shadow Colors Object
+
+```tsx
+shadowColors?: {
+  first?: string;   // Default: '#07bccc'
+  second?: string;  // Default: '#e601c0'
+  third?: string;   // Default: '#e9019a'
+  fourth?: string;  // Default: '#f40468'
+  glow?: string;    // Default: '#f40468'
+}
+```
+
+## Features
+
+- **Layered Shadows**: Multiple colored shadow layers create depth
+- **Hover Interaction**: Shadows disappear on hover
+- **Customizable Colors**: Full control over shadow color scheme
+- **Smooth Transitions**: Animated shadow transitions
+
+## Custom Colors
+
+```tsx
+<SwooshText 
+  text="Custom" 
+  shadowColors={{
+    first: '#3b82f6',
+    second: '#8b5cf6',
+    third: '#ec4899',
+    fourth: '#f43f5e',
+    glow: '#f43f5e'
+  }}
+  className="text-7xl"
+/>
+```
+
+## Styling Tips
+
+- Works best with large text sizes (text-6xl or larger)
+- Use italic font style for enhanced swoosh effect
+- Consider dark backgrounds to make shadows stand out
+- Bold fonts enhance the visual impact
+
+## Dependencies
+
+- `motion/react` - Animation and hover effects
+- `@/lib/utils` - cn utility function

@@ -1,0 +1,80 @@
+---
+title: "Scroll Text"
+description: "Text that animates and highlights as you scroll through a list"
+icon: "font"
+---
+
+An interactive text component that highlights and animates items as they scroll into view.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/scroll-text
+```
+
+## Usage
+
+```tsx
+import ScrollText from "@/components/kokonutui/scroll-text";
+
+export default function Example() {
+  return (
+    <ScrollText 
+      texts={[
+        "TailwindCSS",
+        "Kokonut UI",
+        "shadcn/ui",
+        "Next.js",
+        "React"
+      ]}
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="texts" type="string[]" default="['TailwindCSS', 'Kokonut UI', 'shadcn/ui', 'Next.js', 'Vercel', 'Motion', 'React', 'Resend', 'TypeScript', 'Fumadocs', 'Supabase', 'Vercel']">
+  Array of text items to display
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  Additional CSS classes for the container
+</ParamField>
+
+## Features
+
+- **Scroll-Based Animation**: Items animate into view as you scroll
+- **Active Highlighting**: Currently visible item is highlighted
+- **Intersection Observer**: Efficient scroll tracking
+- **Staggered Animation**: Items appear with alternating entrance directions
+- **Spring Physics**: Natural-feeling animations with spring physics
+
+## How It Works
+
+1. Items enter from alternating sides (left/right)
+2. The centered item is highlighted in full color
+3. Other items appear dimmed
+4. Smooth transitions as you scroll
+
+## Customization
+
+```tsx
+<ScrollText 
+  texts={["Item 1", "Item 2", "Item 3"]}
+  className="max-w-2xl"
+/>
+```
+
+## Animation Details
+
+- **Initial State**: Items hidden with horizontal offset and rotation
+- **Entrance**: Spring animation brings items into view
+- **Active State**: Full opacity and color
+- **Inactive State**: Reduced opacity (50%)
+
+## Dependencies
+
+- `motion/react` - Animation and scroll detection
+- `react` - Hooks (useState, useRef, useEffect)
+- `@/lib/utils` - cn utility function

@@ -1,0 +1,127 @@
+---
+title: Card Stack
+description: A stacked card layout that expands into a fanned spread with spring animations and glassmorphism effects.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/card-stack"
+```
+
+## Usage
+
+```tsx
+import CardStack from "@/components/kokonutui/card-stack";
+
+export default function Example() {
+  return <CardStack />;
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes for container |
+
+## Features
+
+- **Spring Physics**: Smooth spring animations using Framer Motion
+- **Glassmorphism**: Layered backdrop blur and gradients
+- **Responsive Layout**: Adapts to different screen sizes
+- **Click to Toggle**: Expand/collapse on click or tap
+- **Product Showcase**: Perfect for displaying product cards
+- **Centered Alignment**: Cards pivot around center point
+- **Hover Effects**: Individual card hover states
+
+## Product Interface
+
+```tsx
+interface Product {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  specs: Array<{
+    label: string;
+    value: string;
+  }>;
+}
+```
+
+## Animation States
+
+### Stacked (Default)
+- Cards overlap with slight offset
+- Minimal rotation (1.5° per card)
+- Scale decreases by 2% per card
+- Centered around middle card
+
+### Expanded (On Click)
+- Cards fan out horizontally
+- Increased rotation (5° per card)
+- Equal scale for all cards
+- Maintain visual overlap
+
+## Customization
+
+Modify the `products` array to use your own data:
+
+```tsx
+const products: Product[] = [
+  {
+    id: "your-id",
+    title: "Your Product",
+    subtitle: "Product Tagline",
+    image: "https://your-image-url.jpg",
+    specs: [
+      { label: "Speed", value: "Fast" },
+      { label: "Security", value: "High" },
+      { label: "Support", value: "24/7" },
+      { label: "Features", value: "Custom" }
+    ]
+  }
+];
+```
+
+## Styling Details
+
+- **Backdrop Blur**: Multi-layer blur effects for depth
+- **Gradients**: Subtle gradient overlays for glass effect
+- **Borders**: Semi-transparent borders
+- **Shadows**: Layered shadow system for elevation
+- **Inner Border**: Additional border for depth
+
+## Animation Configuration
+
+```tsx
+transition={{
+  type: "spring",
+  stiffness: 350,
+  damping: 30,
+  mass: 0.8,
+  restDelta: 0.001,
+  restSpeed: 0.001
+}}
+```
+
+## Layout Calculations
+
+- **Card Width**: 320px
+- **Card Overlap**: 240px when expanded
+- **Center Offset**: Dynamically calculated based on total cards
+- **Rotation Range**: -2.5° to +2.5° per card index
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `@/lib/utils` (cn helper)
+
+## Accessibility
+
+- Proper ARIA labels
+- Keyboard accessible (button element)
+- Screen reader friendly
+- Focus visible states

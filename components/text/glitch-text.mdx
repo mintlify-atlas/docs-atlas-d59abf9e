@@ -1,0 +1,114 @@
+---
+title: "Glitch Text"
+description: "Animated text with customizable glitch effects and vibrant color schemes"
+icon: "font"
+---
+
+A text component with an animated glitch effect featuring customizable intensity levels and color schemes.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/glitch-text
+```
+
+## Usage
+
+```tsx
+import GlitchText from "@/components/kokonutui/glitch-text";
+
+export default function Example() {
+  return (
+    <GlitchText 
+      text="Glitch Effect" 
+      glitchIntensity="medium"
+      color="gradient-orange"
+      size="2xl"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="text" type="string" default="'Glitch Text'">
+  The text content to display with glitch effect
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  Additional CSS classes for the container
+</ParamField>
+
+<ParamField path="glitchIntensity" type="'light' | 'medium' | 'heavy' | 'extreme'" default="'medium'">
+  Intensity level of the glitch animation
+</ParamField>
+
+<ParamField path="color" type="'rainbow' | 'blue' | 'purple' | 'cyan' | 'pink' | 'orange' | 'gradient-orange'" default="'gradient-orange'">
+  Color scheme for the glitch effect
+</ParamField>
+
+<ParamField path="backgroundColor" type="string" optional>
+  Custom background color
+</ParamField>
+
+<ParamField path="isStatic" type="boolean" default="false">
+  Disable animation and show static text
+</ParamField>
+
+<ParamField path="size" type="'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | number" default="'md'">
+  Text size (preset or custom pixel value)
+</ParamField>
+
+<ParamField path="fontWeight" type="number" default="700">
+  Font weight (100-900)
+</ParamField>
+
+<ParamField path="letterSpacing" type="number" default="5">
+  Letter spacing value
+</ParamField>
+
+## Glitch Intensity Levels
+
+- **light**: Subtle effect with minimal distortion
+- **medium**: Balanced effect suitable for most uses
+- **heavy**: Strong distortion and movement
+- **extreme**: Maximum glitch effect with rapid changes
+
+## Color Schemes
+
+- **rainbow**: Dynamic multi-hue color cycling
+- **blue**: Vibrant blue tones
+- **purple**: Rich purple shades
+- **cyan**: Bright cyan palette
+- **pink**: Vibrant pink colors
+- **orange**: Tangerine orange tones
+- **gradient-orange**: Multi-tone orange gradient
+
+## Examples
+
+### Static Glitch
+
+```tsx
+<GlitchText 
+  text="No Animation" 
+  isStatic={true}
+  color="cyan"
+/>
+```
+
+### Extreme Effect
+
+```tsx
+<GlitchText 
+  text="Extreme!" 
+  glitchIntensity="extreme"
+  color="rainbow"
+  size="3xl"
+/>
+```
+
+## Dependencies
+
+- `motion/react` - Animation library
+- `react` - useRef hook
+- `@/lib/utils` - cn utility function

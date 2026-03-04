@@ -1,0 +1,122 @@
+---
+title: Introduction
+description: Welcome to Kokonut UI - an open-source React component library built with Tailwind CSS v4, shadcn/ui, and Motion
+icon: Sparkles
+---
+
+## Welcome to Kokonut UI
+
+Kokonut UI is an open-source collection of stunning UI components built with modern web technologies. It provides a comprehensive set of beautifully designed, accessible, and customizable components that you can easily add to your React projects.
+
+## What is Kokonut UI?
+
+Kokonut UI is a component library that combines the power of:
+
+- **React 19** - The latest version of React for building modern user interfaces
+- **Tailwind CSS v4** - Utility-first CSS framework for rapid UI development
+- **shadcn/ui** - High-quality, accessible component primitives
+- **Motion** (Framer Motion v12) - Powerful animations and interactions
+- **TypeScript** - Full type safety and excellent developer experience
+
+<Info>
+Kokonut UI is built on top of shadcn/ui's architecture, which means you get the benefits of copy-paste components that live in your codebase, giving you full control and customization.
+</Info>
+
+## Key Features
+
+<Card title="46+ Production-Ready Components" icon="box">
+A growing collection of meticulously crafted components including buttons, cards, navigation elements, and complex interactive components.
+</Card>
+
+<Card title="Easy Installation via CLI" icon="terminal">
+Install components instantly using the shadcn CLI with the `@kokonutui` namespace. No need to manage component dependencies manually.
+</Card>
+
+<Card title="Full TypeScript Support" icon="code">
+All components are written in TypeScript with strict mode enabled, providing excellent IntelliSense and type safety.
+</Card>
+
+<Card title="Tailwind CSS v4" icon="palette">
+Built with the latest version of Tailwind CSS, taking advantage of new features and performance improvements.
+</Card>
+
+<Card title="Beautiful Animations" icon="sparkles">
+Smooth, performant animations powered by Motion (Framer Motion) that enhance user experience without sacrificing performance.
+</Card>
+
+<Card title="Accessible by Default" icon="accessibility">
+Components are built on Radix UI primitives, ensuring WCAG compliance and keyboard navigation out of the box.
+</Card>
+
+## How It Works
+
+Unlike traditional npm packages, Kokonut UI follows the shadcn/ui philosophy:
+
+1. **No package installation** - Components are added directly to your project
+2. **Full source code access** - Modify and customize components to fit your needs
+3. **No vendor lock-in** - You own the code, no dependencies on external packages
+4. **Tree-shakeable** - Only ship the code you actually use
+
+<Tip>
+This approach gives you complete control over your components while still providing the convenience of a component library.
+</Tip>
+
+## Quick Example
+
+Here's how easy it is to add a component to your project:
+
+<Steps>
+
+### Install a component
+
+<CodeGroup>
+
+```bash npm
+npx shadcn@latest add @kokonutui/particle-button
+```
+
+```bash pnpm
+pnpm dlx shadcn@latest add @kokonutui/particle-button
+```
+
+```bash bun
+bunx --bun shadcn@latest add @kokonutui/particle-button
+```
+
+```bash yarn
+yarn dlx shadcn@latest add @kokonutui/particle-button
+```
+
+</CodeGroup>
+
+### Use it in your app
+
+```tsx
+import ParticleButton from "@/components/kokonutui/particle-button";
+
+export default function Page() {
+  return <ParticleButton />;
+}
+```
+
+</Steps>
+
+That's it! The component and all its dependencies are now in your project.
+
+## What's Next?
+
+<Card title="Installation Guide" icon="rocket" href="/installation">
+Learn how to set up Kokonut UI in your project with step-by-step instructions.
+</Card>
+
+<Card title="Browse Components" icon="grid" href="/components/buttons/particle-button">
+Explore the full collection of 46+ components with live examples and code.
+</Card>
+
+## Open Source
+
+Kokonut UI is open source and MIT licensed. You can find the source code on [GitHub](https://github.com/kokonut-labs/kokonutui) and contribute to the project.
+
+<Note>
+This project is sponsored by Vercel as part of their OSS 2025 Program.
+</Note>

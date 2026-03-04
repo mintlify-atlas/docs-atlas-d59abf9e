@@ -1,0 +1,135 @@
+---
+title: Profile Dropdown
+description: Menu dropdown with action buttons and profile information display
+icon: bars
+---
+
+A polished profile dropdown menu with user information, status badges, and action items. Features a gradient avatar border and smooth animations.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/profile-dropdown
+```
+
+## Usage
+
+```tsx
+import ProfileDropdown from "@/components/kokonutui/profile-dropdown";
+
+export default function Example() {
+  return (
+    <ProfileDropdown />
+  );
+}
+```
+
+## Props
+
+<ResponseField name="data" type="Profile" default="SAMPLE_PROFILE_DATA">
+  Profile data object containing:
+  - `name` (string): User's display name
+  - `email` (string): User's email address
+  - `avatar` (string): URL to user's avatar image
+  - `subscription` (string, optional): Subscription tier (e.g., "PRO")
+  - `model` (string, optional): AI model being used (e.g., "Gemini 2.0 Flash")
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS classes to apply to the dropdown container
+</ResponseField>
+
+<ResponseField name="showTopbar" type="boolean">
+  Whether to show the topbar (reserved for future use)
+</ResponseField>
+
+## Features
+
+- **Gradient Avatar**: Colorful gradient border around user avatar
+- **Status Badges**: Displays subscription and model information with color-coded badges
+- **Menu Items**: Pre-configured menu with common profile actions
+- **Visual Indicator**: Curved line indicator that animates on hover and open state
+- **Sign Out Action**: Prominent red-styled sign out button
+- **Smooth Animations**: Fade, zoom, and slide animations for menu appearance
+- **Dark Mode Support**: Fully styled for both light and dark themes
+
+## Menu Items
+
+The dropdown includes these default menu items:
+
+1. **Profile** - User icon, links to profile page
+2. **Model** - Shows current AI model with badge (e.g., "Gemini 2.0 Flash")
+3. **Subscription** - Shows subscription tier with badge (e.g., "PRO")
+4. **Settings** - Settings icon, links to settings page
+5. **Terms & Policies** - FileText icon, links to legal pages
+6. **Sign Out** - Logout action in red styling
+
+## Example with Custom Data
+
+```tsx
+import ProfileDropdown from "@/components/kokonutui/profile-dropdown";
+
+const userData = {
+  name: "Jane Doe",
+  email: "jane@example.com",
+  avatar: "/avatars/jane.jpg",
+  subscription: "ENTERPRISE",
+  model: "GPT-4"
+};
+
+export default function Example() {
+  return (
+    <ProfileDropdown data={userData} />
+  );
+}
+```
+
+## Styling Details
+
+### Trigger Button
+- Rounded corners (`rounded-2xl`)
+- Subtle border with hover effect
+- Smooth background transitions
+- Gradient avatar border (purple → pink → orange)
+
+### Dropdown Menu
+- Backdrop blur effect for modern look
+- Shadow with theme-aware colors
+- Rounded corners (`rounded-2xl`)
+- Animated entrance (fade + zoom + slide)
+
+### Menu Items
+- Hover state with background and border
+- Icon + label layout
+- Optional badge display for status items
+- Smooth transitions on all interactions
+
+## Visual Indicator
+
+The bending line indicator on the right side of the trigger button:
+- Changes color from gray to blue when active
+- Scales up slightly when menu is open
+- Smooth transitions for all state changes
+
+## Badge Colors
+
+- **Model Badge**: Blue background (`bg-blue-50` / `bg-blue-500/10`)
+- **Subscription Badge**: Purple background (`bg-purple-50` / `bg-purple-500/10`)
+
+## Accessibility
+
+- Uses Radix UI DropdownMenu primitives
+- Proper ARIA labels and roles
+- Keyboard navigation support
+- Focus management
+- Screen reader friendly
+
+## Dependencies
+
+- `react` (useState hook)
+- `lucide-react` (Settings, CreditCard, FileText, LogOut, User icons)
+- `next/image`
+- `next/link`
+- `@/components/ui/dropdown-menu`
+- `@/components/icons/gemini`
+- `@/lib/utils` (cn utility)

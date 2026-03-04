@@ -1,0 +1,181 @@
+---
+title: AI State Loading
+description: Code loading pending. 
+icon: SquareStack
+full: false
+---
+
+#
+
+import AILoadingState from "@/components/kokonutui/ai-loading";
+
+<Preview link="ai-loading" comment={["Motion"]}>
+    <AILoadingState />
+</Preview>
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/ai-loading
+```
+
+## Overview
+
+A sophisticated loading indicator for AI operations that displays animated progress with scrolling status messages. Perfect for showing detailed feedback during AI processing tasks like web searching, analyzing results, or enhancing UI/UX.
+
+## Features
+
+- Animated circular progress indicator with colorful rotating rings
+- Auto-scrolling status messages that cycle through different tasks
+- Multiple task sequences (searching, analyzing, enhancing)
+- Numbered code-like line display
+- Gradient overlay for smooth text fade effect
+- Fully responsive and themeable
+- Dark mode support
+
+## Props
+
+This component doesn't expose props - it's a complete demo implementation.
+
+## Component Structure
+
+### State Management
+
+```typescript
+const [sequenceIndex, setSequenceIndex] = useState(0); // Current task sequence
+const [visibleLines, setVisibleLines] = useState<Array<{ text: string; number: number }>>([]); // Displayed lines
+const [scrollPosition, setScrollPosition] = useState(0); // Scroll offset
+```
+
+### Task Sequences
+
+The component cycles through three task sequences:
+
+```typescript
+const TASK_SEQUENCES = [
+  {
+    status: "Searching the web",
+    lines: [
+      "Initializing web search...",
+      "Scanning web pages...",
+      "Visiting 5 websites...",
+      "Analyzing content...",
+      "Generating summary...",
+    ],
+  },
+  {
+    status: "Analyzing results",
+    lines: [...]
+  },
+  {
+    status: "Enhancing UI/UX",
+    lines: [...]
+  },
+];
+```
+
+## Usage Example
+
+```tsx
+import AILoadingState from "@/components/kokonutui/ai-loading";
+
+export default function ProcessingPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      {isLoading ? (
+        <AILoadingState />
+      ) : (
+        <div>Content loaded!</div>
+      )}
+    </div>
+  );
+}
+```
+
+## Loading Animation
+
+The component includes a multi-ring circular loading animation:
+
+```typescript
+<LoadingAnimation progress={(sequenceIndex / TASK_SEQUENCES.length) * 100} />
+```
+
+Features:
+- 6 concentric circles with different colors
+- Counter-rotating animation (alternating clockwise/counter-clockwise)
+- Progress-based masking
+- Smooth 8-second rotation cycles
+
+## Customization
+
+### Add Custom Task Sequences
+
+```typescript
+const CUSTOM_SEQUENCES = [
+  {
+    status: "Processing data",
+    lines: [
+      "Loading dataset...",
+      "Cleaning data...",
+      "Running analysis...",
+      "Generating insights...",
+    ],
+  },
+];
+```
+
+### Adjust Scroll Speed
+
+Change the interval in the `useEffect` hook:
+
+```typescript
+const advanceTimer = setInterval(() => {
+  // ... scroll logic
+}, 2000); // Change from 2000ms to your preferred speed
+```
+
+### Customize Colors
+
+The loading rings use these colors:
+- `#FF2E7E` (Pink)
+- `#00E5FF` (Cyan)
+- `#4ADE80` (Green)
+- `#FFA726` (Orange)
+- `#FFEB3B` (Yellow)
+- `#FF4081` (Pink)
+
+Modify them in the SVG `circle` elements.
+
+## Animation Details
+
+### Ring Rotation
+
+```css
+@keyframes rotate-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes rotate-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+```
+
+### Scroll Behavior
+
+- Shows 3 lines at a time in an 84px window
+- Auto-scrolls every 2 seconds
+- Smooth scroll transitions
+- Cycles to next sequence when reaching the end
+
+## Dependencies
+
+- React hooks (useState, useEffect, useRef)
+- No external animation libraries required (uses CSS animations)
+
+## Related Components
+
+- [AI Text Loading](/components/ai/ai-text-loading) - Simple text-based loading indicator
+- [AI Prompt](/components/ai/ai-prompt) - Input component to pair with loading state

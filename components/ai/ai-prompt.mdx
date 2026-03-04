@@ -1,0 +1,110 @@
+---
+title: AI Input Selector
+description: My own style of chat AI input.
+icon: MessageCircleDashed
+full: false
+---
+
+#
+
+
+import AI_Prompt from "@/components/kokonutui/ai-prompt";
+
+<Preview link="ai-prompt" comment={["Motion"]}>
+    <AI_Prompt />
+</Preview>
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/ai-prompt
+```
+
+## Overview
+
+An advanced AI prompt input component featuring model selection, file attachments, and auto-resizing textarea. This component provides a polished interface similar to modern AI chat applications like Claude or ChatGPT.
+
+## Features
+
+- Model selection dropdown with animated transitions
+- Auto-resizing textarea that grows with content
+- File attachment support
+- Custom AI model icons (OpenAI, Anthropic, Gemini)
+- Submit on Enter (Shift+Enter for new line)
+- Dark mode support
+- Promotional banner section
+
+## Props
+
+This component doesn't expose props - it's a complete demo implementation. You can customize it by modifying:
+
+- `AI_MODELS` array - List of available AI models
+- `MODEL_ICONS` object - Icon mapping for each model
+- `minHeight` and `maxHeight` in `useAutoResizeTextarea` hook
+
+## Component Structure
+
+### State Management
+
+```typescript
+const [value, setValue] = useState(""); // Textarea content
+const [selectedModel, setSelectedModel] = useState("Claude 4.5 Sonnet"); // Selected AI model
+const { textareaRef, adjustHeight } = useAutoResizeTextarea({
+  minHeight: 72,
+  maxHeight: 300,
+});
+```
+
+### Key Features
+
+**Auto-resize Textarea**: Uses the `useAutoResizeTextarea` hook to dynamically adjust height based on content.
+
+**Model Selection**: Dropdown menu with animated model switching using Framer Motion's AnimatePresence.
+
+**Keyboard Shortcuts**: Enter to submit, Shift+Enter for new line.
+
+## Usage Example
+
+```tsx
+import AI_Prompt from "@/components/kokonutui/ai-prompt";
+
+export default function ChatPage() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <AI_Prompt />
+    </div>
+  );
+}
+```
+
+## Dependencies
+
+- `lucide-react` - Icons (ArrowRight, Bot, Check, ChevronDown, Paperclip)
+- `motion` (framer-motion) - Animations for model switching
+- `@/components/ui/button` - Button component
+- `@/components/ui/dropdown-menu` - Dropdown menu component
+- `@/components/ui/textarea` - Textarea component
+- `@/hooks/use-auto-resize-textarea` - Auto-resize hook
+- `@/components/icons/anthropic` - Anthropic icon components
+
+## Customization
+
+To add your own AI models:
+
+```typescript
+const AI_MODELS = [
+  "Your Custom Model",
+  "Claude 4.5 Sonnet",
+  "GPT-5-mini",
+];
+
+const MODEL_ICONS: Record<string, React.ReactNode> = {
+  "Your Custom Model": <YourCustomIcon />,
+  // ... other icons
+};
+```
+
+## Related Components
+
+- [AI Input Search](/components/ai/ai-input-search) - Simpler AI input with web search toggle
+- [AI Loading](/components/ai/ai-loading) - Loading state for AI processing

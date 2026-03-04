@@ -1,0 +1,153 @@
+---
+title: useFileInput
+description: A hook for managing file input state with validation.
+icon: wrench
+---
+
+#
+
+
+A React hook that simplifies file input management with built-in validation for file size and type, plus state management for selected files.
+
+## Installation
+
+Manually copy the hook from `/hooks/use-file-input.ts` into your project.
+
+## Usage
+
+```tsx
+import { useFileInput } from "@/hooks/use-file-input";
+
+function FileUpload() {
+  const {
+    fileName,
+    error,
+    fileInputRef,
+    handleFileSelect,
+    clearFile,
+    fileSize,
+  } = useFileInput({
+    accept: "image/*",
+    maxSize: 5, // 5MB
+  });
+
+  return (
+    <div>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileSelect}
+        accept="image/*"
+        className="hidden"
+      />
+      <button onClick={() => fileInputRef.current?.click()}>
+        Select File
+      </button>
+      {fileName && (
+        <div>
+          <p>{fileName} ({(fileSize / 1024 / 1024).toFixed(2)} MB)</p>
+          <button onClick={clearFile}>Remove</button>
+        </div>
+      )}
+      {error && <p className="text-red-500">{error}</p>}
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+The hook accepts a configuration object:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `accept` | `string` | `undefined` | File type restriction (e.g., "image/*", "application/pdf") |
+| `maxSize` | `number` | `undefined` | Maximum file size in megabytes (MB) |
+
+### Return Value
+
+Returns an object with:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `fileName` | `string` | Name of the selected file |
+| `error` | `string` | Error message if validation fails |
+| `fileInputRef` | `RefObject<HTMLInputElement>` | Ref to attach to the file input element |
+| `handleFileSelect` | `(e: ChangeEvent<HTMLInputElement>) => void` | Handler for file input change event |
+| `validateAndSetFile` | `(file?: File) => void` | Function to manually validate and set a file |
+| `clearFile` | `() => void` | Function to clear the selected file |
+| `fileSize` | `number` | Size of the selected file in bytes |
+
+## Features
+
+- **File type validation** - Restrict uploads to specific file types
+- **Size validation** - Prevent files larger than specified limit
+- **Error handling** - Built-in error messages for validation failures
+- **Clear functionality** - Easy file removal with state reset
+- **File metadata** - Access to file name and size
+
+## Example with Drag and Drop
+
+```tsx
+function DragDropUpload() {
+  const { validateAndSetFile, fileName, error, clearFile } = useFileInput({
+    accept: "image/*",
+    maxSize: 10,
+  });
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    validateAndSetFile(file);
+  };
+
+  return (
+    <div
+      onDrop={handleDrop}
+      onDragOver={(e) => e.preventDefault()}
+      className="border-2 border-dashed p-8"
+    >
+      {fileName ? (
+        <div>
+          <p>{fileName}</p>
+          <button onClick={clearFile}>Remove</button>
+        </div>
+      ) : (
+        <p>Drag and drop an image here</p>
+      )}
+      {error && <p className="text-red-500">{error}</p>}
+    </div>
+  );
+}
+```
+
+## Use Cases
+
+- File upload forms with validation
+- Image upload with preview
+- Document upload with size limits
+- Profile picture upload
+- Drag and drop file interfaces
+
+## Validation Rules
+
+### File Size
+- Specified in MB
+- Checked before setting file state
+- Error message: "File size must be less than {maxSize}MB"
+
+### File Type
+- Uses MIME type matching
+- Supports wildcards (e.g., "image/*")
+- Error message: "File type must be {accept}"
+
+## Notes
+
+- File validation happens immediately on selection
+- The actual file object is not stored in state (only metadata)
+- Access the file through the input ref when needed for upload
+- Clear function resets all state including errors
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

@@ -1,0 +1,172 @@
+---
+title: Team Selector
+description: Animated team size selector with avatar stack visualization
+icon: bars
+---
+
+An interactive team size selector with animated avatar stack. Features smooth animations, vibration feedback, and elegant visual design.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/team-selector
+```
+
+## Usage
+
+```tsx
+import TeamSelector from "@/components/kokonutui/team-selector";
+
+export default function Example() {
+  return (
+    <TeamSelector />
+  );
+}
+```
+
+## Props
+
+<ResponseField name="defaultValue" type="number" default="1">
+  Initial team size (1-4)
+</ResponseField>
+
+<ResponseField name="onChange" type="(size: number) => void">
+  Callback function triggered when team size changes. Receives the new size as parameter.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS classes to apply to the container
+</ResponseField>
+
+## Features
+
+- **Avatar Stack**: Visual representation with overlapping avatars
+- **Smooth Animations**: Spring-based transitions for avatar appearance/disappearance
+- **Counter Animation**: Sliding number animation with directional awareness
+- **Vibration Feedback**: Shake animation when trying to exceed limits
+- **Limit Enforcement**: Prevents going below 1 or above 4 team members
+- **Keyboard Accessible**: Full keyboard support for increment/decrement
+- **Dark Mode**: Fully styled for both light and dark themes
+
+## Constants
+
+```typescript
+const MAX_TEAM_SIZE = 4;        // Maximum team members
+const AVATAR_OVERLAP = 10;      // Pixel overlap between avatars
+```
+
+## Animation Variants
+
+### Container Animation
+```typescript
+container: {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, duration: 0.45 }
+}
+```
+
+### Avatar Animation
+```typescript
+avatar: {
+  visible: { opacity: 1, scale: 1 },    // Spring animation
+  hidden: { opacity: 0, scale: 0.6 }     // Fade + shrink
+}
+```
+
+### Vibration Animation
+```typescript
+vibration: {
+  shake: { x: [-4, 4, -4, 4, 0], duration: 0.38 }
+}
+```
+
+### Counter Animation
+The counter uses direction-aware animations:
+- Increment: New number slides up from bottom
+- Decrement: New number slides down from top
+
+## Example with Handler
+
+```tsx
+import TeamSelector from "@/components/kokonutui/team-selector";
+
+export default function Example() {
+  const handleTeamSizeChange = (size: number) => {
+    console.log(`Team size changed to: ${size}`);
+    // Update your application state
+  };
+
+  return (
+    <TeamSelector 
+      defaultValue={2}
+      onChange={handleTeamSizeChange}
+      className="my-8"
+    />
+  );
+}
+```
+
+## Team Member Data
+
+The component uses predefined avatar URLs:
+
+```typescript
+const TEAM_MEMBERS = [
+  { id: "member-1", avatarUrl: "...", name: "Team Member 1" },
+  { id: "member-2", avatarUrl: "...", name: "Team Member 2" },
+  { id: "member-3", avatarUrl: "...", name: "Team Member 3" },
+  { id: "member-4", avatarUrl: "...", name: "Team Member 4" },
+];
+```
+
+All four avatars are always rendered but animated in/out based on the current team size.
+
+## Styling Details
+
+### Card Container
+- White background with subtle shadow
+- Rounded corners (`rounded-2xl`)
+- Border with low opacity
+- Dark mode: Semi-transparent zinc background
+
+### Avatars
+- 48px × 48px (size-12)
+- Rounded full circle
+- White border with shadow
+- -10px left margin for overlap (except first)
+- Z-index stacking (decreasing order)
+
+### Buttons
+- 36px × 36px (h-9 w-9)
+- Gradient background (white → zinc-50)
+- Border with shadow
+- Hover effects: darker border, increased shadow
+- Disabled state: reduced opacity, no pointer
+
+### Counter Display
+- Large text (text-3xl)
+- Gradient text (zinc-800 → zinc-500)
+- Bold weight
+- Small label below ("member" / "members")
+
+## Accessibility
+
+- Semantic `<fieldset>` and `<legend>` elements
+- `<output>` element for counter with ARIA label
+- Descriptive `aria-label` on buttons
+- Keyboard support (Enter and Space keys)
+- Disabled state prevents invalid actions
+- Screen reader announces current team size
+
+## State Management
+
+Internal states:
+- `peopleCount`: Current team size
+- `isVibrating`: Vibration animation trigger
+- `directionRef`: Tracks increment/decrement for animation direction
+
+## Dependencies
+
+- `motion` (Framer Motion with Variants type)
+- `next/image`
+- `react` (useState, useRef hooks)

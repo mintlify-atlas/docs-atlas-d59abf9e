@@ -1,0 +1,102 @@
+---
+title: Avatar Picker
+description: An animated avatar selection component with username input and profile setup
+icon: keyboard
+---
+
+A complete profile setup component featuring animated avatar selection with a gallery of colorful avatars, username input with validation, and smooth transitions between states.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/avatar-picker
+```
+
+## Usage
+
+```tsx
+import ProfileSetup from "@/components/kokonutui/avatar-picker";
+
+export default function OnboardingPage() {
+  const handleComplete = (data: { username: string; avatarId: number }) => {
+    console.log("Profile setup complete:", data);
+    // Save to database or proceed to next step
+  };
+
+  return (
+    <ProfileSetup 
+      onComplete={handleComplete}
+      className="my-8"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="onComplete" type="(data: { username: string; avatarId: number }) => void">
+  Callback fired when user clicks "Get Started" with valid username and selected avatar
+</ParamField>
+
+<ParamField path="className" type="string">
+  Additional CSS classes to apply to the card container
+</ParamField>
+
+## Features
+
+- **Animated Avatar Preview**: Large center stage showing selected avatar with color-matched glow effect
+- **Avatar Gallery**: Thumbnail strip with 4 unique avatars, smooth selection animations
+- **Username Validation**: Requires minimum 3 characters, shows character count (max 20)
+- **Visual Feedback**: 
+  - Selected avatar has ring outline and check mark
+  - Hover states on thumbnails
+  - Per-avatar color rings on main preview
+  - Error state for invalid username
+- **Accessible**: Full ARIA labels, keyboard navigation, screen reader support
+- **Motion Reduced**: Respects `prefers-reduced-motion` system preference
+
+## Avatar Data
+
+The component includes 4 pre-designed colorful avatars with unique expressions. Each avatar has:
+- Unique ID and color scheme
+- SVG-based graphics that scale perfectly
+- Custom RGB color values for the stage ring animation
+
+## Username Validation
+
+- **Minimum length**: 3 characters
+- **Maximum length**: 20 characters
+- **Character counter**: Updates in real-time, turns amber at 18+ characters
+- **Error display**: Shows validation message when username is too short
+- **Button state**: Disabled until username meets minimum length
+
+## Customization
+
+To use custom avatars, modify the `avatars` array in the component source:
+
+```tsx
+const avatars: Avatar[] = [
+  {
+    id: 1,
+    svg: <YourCustomSVG />,
+    alt: "Custom Avatar 1",
+  },
+  // Add more avatars...
+];
+
+// Update color ring for each avatar
+const AVATAR_RGB: Record<number, string> = {
+  1: "255, 0, 91",  // Pink
+  2: "255, 125, 16", // Orange
+  // Add RGB values for each avatar ID...
+};
+```
+
+## Dependencies
+
+- `lucide-react` - Icon components (Check, ChevronRight, User2)
+- `motion` (Framer Motion) - Animation library
+- `react` - Core React library
+- `@/components/ui/button` - shadcn/ui Button component
+- `@/components/ui/card` - shadcn/ui Card components
+- `@/components/ui/input` - shadcn/ui Input component

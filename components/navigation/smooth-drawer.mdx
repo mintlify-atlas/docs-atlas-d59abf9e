@@ -1,0 +1,115 @@
+---
+title: Smooth Drawer
+description: Smooth slide-in drawer with animated content and gradient effects
+icon: bars
+---
+
+A drawer component with smooth slide-up animations and staggered content reveals. Features gradient effects and motion animations for a polished user experience.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/smooth-drawer
+```
+
+## Usage
+
+```tsx
+import SmoothDrawer from "@/components/kokonutui/smooth-drawer";
+
+export default function Example() {
+  return (
+    <SmoothDrawer />
+  );
+}
+```
+
+## Props
+
+<ResponseField name="title" type="string" default="KokonutUI - Pro">
+  Main title displayed in the drawer header
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Description text displayed below the title
+</ResponseField>
+
+<ResponseField name="primaryButtonText" type="string" default="Buy Now">
+  Text for the primary action button
+</ResponseField>
+
+<ResponseField name="secondaryButtonText" type="string" default="Maybe Later">
+  Text for the secondary (close) button
+</ResponseField>
+
+<ResponseField name="onPrimaryAction" type="() => void">
+  Callback function triggered when primary button is clicked
+</ResponseField>
+
+<ResponseField name="onSecondaryAction" type="() => void">
+  Callback function triggered when secondary button is clicked
+</ResponseField>
+
+<ResponseField name="price" type="number" default="169">
+  Original price to display (shown with strikethrough)
+</ResponseField>
+
+<ResponseField name="discountedPrice" type="number" default="99">
+  Discounted price to display (shown prominently)
+</ResponseField>
+
+## Features
+
+- **Smooth Animations**: Spring-based slide-up animation with staggered content reveal
+- **Price Display**: Built-in price tag component with original and discounted prices
+- **Gradient Effects**: Shimmer effect on the primary button for visual appeal
+- **Icon Animation**: Animated Fingerprint icon with shake effect
+- **Responsive Design**: Adapts to different screen sizes
+- **Accessible**: Proper ARIA labels and keyboard navigation
+
+## Example with Custom Content
+
+```tsx
+import SmoothDrawer from "@/components/kokonutui/smooth-drawer";
+
+export default function Example() {
+  const handlePurchase = () => {
+    console.log("Purchase initiated");
+  };
+
+  const handleClose = () => {
+    console.log("Drawer closed");
+  };
+
+  return (
+    <SmoothDrawer 
+      title="Premium Plan"
+      description="Unlock all features with our premium subscription"
+      primaryButtonText="Subscribe Now"
+      secondaryButtonText="Not Now"
+      price={199}
+      discountedPrice={149}
+      onPrimaryAction={handlePurchase}
+      onSecondaryAction={handleClose}
+    />
+  );
+}
+```
+
+## Animation Details
+
+The drawer uses Framer Motion with carefully tuned spring animations:
+
+- **Container**: Slides up from bottom with fade-in and 3D rotation effect
+- **Content**: Staggered animation with 70ms delay between items
+- **Button Shimmer**: Hover-triggered shine effect that sweeps across
+- **Icon**: Continuous shake animation with 2-second intervals
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `lucide-react` (Fingerprint icon)
+- `next/image`
+- `next/link`
+- `@/components/ui/button`
+- `@/components/ui/drawer`

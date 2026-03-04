@@ -1,0 +1,117 @@
+---
+title: useDebounce
+description: A hook that debounces a value to optimize performance.
+icon: wrench
+---
+
+#
+
+
+A React hook that delays updating a value until after a specified delay has passed since the last change. Essential for optimizing search inputs and expensive operations.
+
+## Installation
+
+This hook is included with some components like `action-search-bar`. You can also manually copy it from `/hooks/use-debounce.ts` into your project.
+
+## Usage
+
+```tsx
+import { useState } from "react";
+import useDebounce from "@/hooks/use-debounce";
+
+function SearchComponent() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  // This effect will only run when debouncedSearchTerm changes
+  // (500ms after the user stops typing)
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // Perform search API call
+      fetchSearchResults(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
+
+  return (
+    <input
+      type="text"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder="Search..."
+    />
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `value` | `T` | required | The value to debounce (can be any type) |
+| `delay` | `number` | `500` | Delay in milliseconds before updating the debounced value |
+
+### Return Value
+
+Returns the debounced value of type `T`. This value only updates after the delay period has passed without the input value changing.
+
+## Features
+
+- **Generic type support** - Works with any data type
+- **Customizable delay** - Configure delay to match your use case
+- **Automatic cleanup** - Properly clears timeouts on unmount
+- **Performance optimization** - Prevents excessive re-renders and API calls
+
+## Example with API Calls
+
+```tsx
+function UserSearch() {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const debouncedQuery = useDebounce(query, 300);
+
+  useEffect(() => {
+    if (debouncedQuery) {
+      fetch(`/api/users?search=${debouncedQuery}`)
+        .then(res => res.json())
+        .then(data => setResults(data));
+    } else {
+      setResults([]);
+    }
+  }, [debouncedQuery]);
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search users..."
+      />
+      <ul>
+        {results.map(user => <li key={user.id}>{user.name}</li>)}
+      </ul>
+    </div>
+  );
+}
+```
+
+## Use Cases
+
+- **Search inputs** - Wait for user to finish typing before searching
+- **Form validation** - Delay validation until user pauses typing
+- **Auto-save** - Save changes after user stops editing
+- **API rate limiting** - Reduce number of API calls
+- **Window resize handlers** - Optimize expensive resize calculations
+
+## Performance Benefits
+
+Without debouncing, typing "hello" would trigger 5 operations (one per character). With a 500ms debounce, only 1 operation occurs after the user finishes typing.
+
+## Notes
+
+- The debounced value will match the input value immediately on the first render
+- Each change resets the timer, so the debounced value only updates after the delay period of inactivity
+- Consider using shorter delays (200-300ms) for better UX in search interfaces
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

@@ -1,0 +1,130 @@
+---
+title: Beams Background
+description: An animated gradient background with flowing beams of light that create a dynamic, aurora-like effect
+icon: "image"
+---
+
+## Overview
+
+Beams Background is a canvas-based animated background component that creates flowing beams of light with customizable intensity. The beams feature smooth animations, pulsing effects, and automatically adapt to dark/light mode.
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+    ```bash
+    npx shadcn@latest add https://kokonutui.com/r/beams-background
+    ```
+  </Tab>
+  <Tab value="Manual">
+    <Steps>
+      <Step>Install dependencies</Step>
+      ```bash
+      npm install motion
+      ```
+      
+      <Step>Copy the component source</Step>
+      Copy the component code from [beams-background.tsx](https://github.com/kokonut-labs/kokonutui/blob/main/components/kokonutui/beams-background.tsx) into your project at `components/kokonutui/beams-background.tsx`
+      
+      <Step>Update imports</Step>
+      Make sure you have the `cn` utility function from `@/lib/utils`
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes for the container |
+| `children` | `React.ReactNode` | Default hero content | Custom content to display over the background |
+| `intensity` | `"subtle" \| "medium" \| "strong"` | `"strong"` | Controls the opacity and visibility of the beams |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import BeamsBackground from "@/components/kokonutui/beams-background";
+
+export default function Page() {
+  return <BeamsBackground />;
+}
+```
+
+### Custom Content
+
+```tsx
+import BeamsBackground from "@/components/kokonutui/beams-background";
+
+export default function Page() {
+  return (
+    <BeamsBackground intensity="medium">
+      <div className="relative z-10 text-center">
+        <h1 className="text-6xl font-bold text-white">Welcome</h1>
+        <p className="text-xl text-white/70">Beautiful animated backgrounds</p>
+      </div>
+    </BeamsBackground>
+  );
+}
+```
+
+### Different Intensities
+
+```tsx
+// Subtle beams - more background, less distraction
+<BeamsBackground intensity="subtle" />
+
+// Medium beams - balanced effect
+<BeamsBackground intensity="medium" />
+
+// Strong beams - bold, eye-catching effect (default)
+<BeamsBackground intensity="strong" />
+```
+
+## Features
+
+- **Canvas Animation**: Smooth 60fps canvas-based rendering for optimal performance
+- **Dark Mode Support**: Automatically adjusts colors based on dark/light theme
+- **Responsive**: Adapts to window resizing with proper device pixel ratio handling
+- **Pulsing Effect**: Beams pulse and shimmer for a more organic feel
+- **Customizable Intensity**: Three intensity levels to match your design needs
+- **Blur Effects**: Multiple blur layers create depth and atmosphere
+- **Color Gradient**: HSL-based color system with blue/cyan tones
+
+## How It Works
+
+The component uses the HTML Canvas API to render animated beams:
+
+1. **Beam Generation**: Creates multiple beams with random properties (position, width, speed, hue)
+2. **Animation Loop**: Uses `requestAnimationFrame` for smooth 60fps animations
+3. **Gradient Drawing**: Each beam is rendered with a linear gradient for smooth edges
+4. **Pulsing**: Sine wave functions create organic pulsing effects
+5. **Dark Mode Detection**: Observes DOM changes to adapt colors automatically
+
+## Dependencies
+
+- `motion` (Framer Motion) - For overlay animations
+- `react` - Core React hooks (useEffect, useRef)
+- `cn` utility - For className merging (from shadcn/ui)
+
+## Accessibility
+
+- The canvas element is decorative and does not require ARIA labels
+- Content placed inside the component should be properly structured with semantic HTML
+- Ensure sufficient color contrast for text placed over the background
+
+## Performance Notes
+
+- Uses `devicePixelRatio` for sharp rendering on high-DPI displays
+- Implements proper cleanup of animation frames and event listeners
+- Canvas is positioned absolutely to avoid layout reflows
+- Blur effects are applied via CSS `filter` property for GPU acceleration
+
+## Browser Support
+
+Works in all modern browsers that support:
+- HTML Canvas 2D Context
+- CSS backdrop-filter
+- requestAnimationFrame
+- ES6+ JavaScript features

@@ -1,0 +1,69 @@
+---
+title: Slide Text Button
+description: A button with animated vertical text transition that reveals alternate text on hover.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/slide-text-button
+```
+
+## Usage
+
+```tsx
+import SlideTextButton from "@/components/kokonutui/slide-text-button";
+
+export default function Example() {
+  return (
+    <div className="flex gap-2">
+      <SlideTextButton 
+        text="Browse Components"
+        hoverText="Click to see more"
+        href="/components/buttons/particle-button"
+      />
+      <SlideTextButton 
+        text="Get Started"
+        href="/docs"
+        variant="ghost"
+      />
+    </div>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `text` | `string` | `"Browse Components"` | Default text to display |
+| `hoverText` | `string` | Same as `text` | Text to show on hover |
+| `href` | `string` | `"/docs/cards/card"` | Link destination |
+| `variant` | `"default" \| "ghost"` | `"default"` | Visual style variant |
+| `className` | `string` | - | Additional CSS classes |
+
+## Variants
+
+### Default
+Solid black background (white in dark mode) with white text (black in dark mode).
+
+### Ghost
+Transparent background with border, subtle hover effect.
+
+## Dependencies
+
+- `motion/react` (Framer Motion) - For text slide animation and entrance effect
+- `next/link` - For client-side navigation
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Vertical text slide animation on hover
+- Two visual variants (default and ghost)
+- Smooth opacity and transform transitions
+- Entrance animation (slides from right)
+- Responsive width with minimum size
+- Integrated Next.js Link component
+- Dark mode support
+- Works as anchor element with full accessibility

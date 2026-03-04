@@ -1,0 +1,111 @@
+---
+title: Action Search Bar
+description: A command palette-style search bar with filterable action items and keyboard navigation
+icon: keyboard
+---
+
+A modern search bar component with dropdown suggestions, keyboard navigation, and smooth animations. Perfect for command palettes, search interfaces, and action menus.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/action-search-bar
+```
+
+## Usage
+
+```tsx
+import ActionSearchBar from "@/components/kokonutui/action-search-bar";
+import { PlaneTakeoff, BarChart2 } from "lucide-react";
+
+const myActions = [
+  {
+    id: "1",
+    label: "Book tickets",
+    icon: <PlaneTakeoff className="h-4 w-4 text-blue-500" />,
+    description: "Travel",
+    short: "⌘K",
+    end: "Agent",
+  },
+  {
+    id: "2",
+    label: "View analytics",
+    icon: <BarChart2 className="h-4 w-4 text-orange-500" />,
+    description: "Reports",
+    short: "⌘A",
+    end: "Dashboard",
+  },
+];
+
+export default function SearchPage() {
+  return (
+    <ActionSearchBar 
+      actions={myActions}
+      defaultOpen={false}
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="actions" type="Action[]">
+  Array of action items to display in the dropdown. Each action has:
+  - `id` (string): Unique identifier
+  - `label` (string): Action display text
+  - `icon` (ReactNode): Icon component
+  - `description` (string, optional): Secondary text
+  - `short` (string, optional): Keyboard shortcut display
+  - `end` (string, optional): Right-aligned metadata
+</ParamField>
+
+<ParamField path="defaultOpen" type="boolean" default="false">
+  Whether the dropdown should be open by default
+</ParamField>
+
+## Action Interface
+
+```tsx
+interface Action {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  description?: string;
+  short?: string;
+  end?: string;
+}
+```
+
+## Features
+
+- **Live Search**: Real-time filtering as you type with 200ms debounce
+- **Keyboard Navigation**: Use Arrow keys to navigate, Enter to select, Escape to close
+- **Smart Filtering**: Searches across both label and description fields
+- **Smooth Animations**: Staggered animations for dropdown items
+- **Accessible**: Full ARIA support with combobox pattern
+- **Visual Feedback**: Icon transitions between search and send states
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `↓` | Navigate to next item |
+| `↑` | Navigate to previous item |
+| `Enter` | Select highlighted item |
+| `Escape` | Close dropdown |
+
+## Customization
+
+The component uses a debounced search with 200ms delay. Results update automatically as the user types, filtering actions by matching text in the label or description.
+
+The dropdown displays helpful hints at the bottom:
+- "Press ⌘K to open commands"
+- "ESC to cancel"
+
+## Dependencies
+
+- `lucide-react` - Icon components
+- `motion` (Framer Motion) - Animation library
+- `react` - Core React library
+- `@/components/ui/input` - shadcn/ui Input component
+- `@/hooks/use-debounce` - Debounce hook for search optimization

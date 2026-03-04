@@ -1,0 +1,58 @@
+---
+title: Social Button
+description: An expandable button that reveals social media sharing options on hover, perfect for content sharing.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/social-button
+```
+
+## Usage
+
+```tsx
+import SocialButton from "@/components/kokonutui/social-button";
+
+export default function Example() {
+  return <SocialButton />;
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | - | Additional CSS classes |
+
+Extends all standard HTML button attributes.
+
+## Features
+
+- Expands to reveal 4 social share buttons on hover
+- Includes Twitter, Instagram, LinkedIn, and link copy
+- Smooth width expansion animation
+- Staggered button appearance for visual appeal
+- Active state feedback on click
+- Dark mode support
+- Mouse leave to collapse
+
+## Social Platforms
+
+The component includes icons for:
+- Twitter (Share on Twitter)
+- Instagram (Share on Instagram)  
+- LinkedIn (Share on LinkedIn)
+- Link (Copy link)
+
+## Dependencies
+
+- `motion/react` (Framer Motion) - For expansion and stagger animations
+- `lucide-react` - For social media icons
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Customization
+
+The share buttons array can be modified in the component source to add or remove social platforms based on your needs.

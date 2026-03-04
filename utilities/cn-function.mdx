@@ -1,0 +1,293 @@
+---
+title: cn() Function
+description: A utility function for merging Tailwind CSS classes efficiently.
+icon: wrench
+---
+
+#
+
+
+The `cn()` function is a utility that intelligently merges Tailwind CSS class names, resolving conflicts and removing duplicates. It combines `clsx` for conditional classes and `tailwind-merge` for Tailwind-specific merging.
+
+## Installation
+
+The `cn` utility is essential for most Kokonut UI components. Install it via the CLI:
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+ 
+```bash tab="bun"
+bunx --bun shadcn@latest add https://kokonutui.com/r/utils.json
+```
+ 
+```bash tab="npx"
+npx shadcn@latest add https://kokonutui.com/r/utils.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://kokonutui.com/r/utils.json
+```
+
+</Tabs>
+
+This will create `lib/utils.ts` in your project with the `cn` function.
+
+## Source Code
+
+```typescript
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+## Usage
+
+```tsx
+import { cn } from "@/lib/utils";
+
+function Button({ className, isActive }) {
+  return (
+    <button
+      className={cn(
+        "px-4 py-2 rounded bg-blue-500 text-white",
+        isActive && "bg-green-500",
+        className
+      )}
+    >
+      Click me
+    </button>
+  );
+}
+```
+
+## Why cn()?
+
+### Problem
+
+When building reusable components with Tailwind CSS, you often need to:
+1. Apply base classes
+2. Add conditional classes
+3. Allow users to override classes
+4. Handle conflicting classes (e.g., `bg-blue-500` vs `bg-red-500`)
+
+Naive string concatenation doesn't work:
+
+```tsx
+// ❌ Both background colors will be applied!
+<div className={`bg-blue-500 ${className}`} />
+// If className="bg-red-500", both bg-blue-500 AND bg-red-500 are in the DOM
+```
+
+### Solution
+
+The `cn()` function:
+- **Merges classes intelligently** using `tailwind-merge`
+- **Handles conditionals** using `clsx`
+- **Resolves conflicts** - Later classes override earlier ones
+- **Removes duplicates** - Only keeps the last occurrence
+
+## Examples
+
+### Basic Merging
+
+```tsx
+cn("px-2 py-1", "px-4") // "py-1 px-4"
+// px-4 overrides px-2
+```
+
+### Conditional Classes
+
+```tsx
+cn(
+  "text-base",
+  isError && "text-red-500",
+  isSuccess && "text-green-500"
+)
+// Returns: "text-base text-red-500" if isError is true
+```
+
+### Variant System
+
+```tsx
+function Badge({ variant, className }) {
+  return (
+    <span
+      className={cn(
+        "px-2 py-1 rounded text-sm",
+        {
+          "bg-blue-100 text-blue-700": variant === "info",
+          "bg-red-100 text-red-700": variant === "error",
+          "bg-green-100 text-green-700": variant === "success",
+        },
+        className
+      )}
+    />
+  );
+}
+```
+
+### Overriding Component Styles
+
+```tsx
+function Card({ className, children }) {
+  return (
+    <div
+      className={cn(
+        "rounded-lg border bg-white p-6",
+        className // User can override any of these
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Usage:
+<Card className="bg-gray-100 p-4">
+  {/* bg-gray-100 overrides bg-white */}
+  {/* p-4 overrides p-6 */}
+</Card>
+```
+
+### Complex Conditional Logic
+
+```tsx
+function Button({ size, variant, isLoading, disabled, className }) {
+  return (
+    <button
+      className={cn(
+        // Base styles
+        "rounded font-medium transition-colors",
+        // Size variants
+        {
+          "px-3 py-1.5 text-sm": size === "sm",
+          "px-4 py-2 text-base": size === "md",
+          "px-6 py-3 text-lg": size === "lg",
+        },
+        // Color variants
+        {
+          "bg-blue-500 text-white hover:bg-blue-600": variant === "primary",
+          "bg-gray-200 text-gray-900 hover:bg-gray-300": variant === "secondary",
+        },
+        // State styles
+        isLoading && "opacity-50 cursor-wait",
+        disabled && "opacity-50 cursor-not-allowed",
+        // User overrides
+        className
+      )}
+    />
+  );
+}
+```
+
+## Array and Object Support
+
+```tsx
+// Arrays
+cn(["px-4", "py-2"], ["bg-blue-500"])
+
+// Objects (keys with truthy values are included)
+cn({
+  "text-red-500": isError,
+  "text-green-500": isSuccess,
+  "font-bold": true,
+})
+
+// Mixed
+cn(
+  "base-class",
+  ["array-class-1", "array-class-2"],
+  { "conditional-class": condition },
+  className
+)
+```
+
+## Best Practices
+
+### 1. Order Matters
+
+Place more specific/override classes last:
+
+```tsx
+// ✅ Good - className can override defaults
+cn("bg-blue-500 text-white", className)
+
+// ❌ Bad - className is overridden by defaults
+cn(className, "bg-blue-500 text-white")
+```
+
+### 2. Use for Tailwind Classes Only
+
+Don't mix with CSS modules or other class systems:
+
+```tsx
+// ❌ Bad
+cn("px-4", styles.customClass)
+
+// ✅ Good
+<div className={`${cn("px-4", className)} ${styles.customClass}`} />
+```
+
+### 3. Component Prop Pattern
+
+Always accept `className` prop for flexibility:
+
+```tsx
+interface CardProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+function Card({ className, children }: CardProps) {
+  return (
+    <div className={cn("default-classes", className)}>
+      {children}
+    </div>
+  );
+}
+```
+
+## Use Cases
+
+- Building reusable component libraries
+- Creating variant systems for components
+- Handling conditional styling
+- Allowing style overrides in components
+- Managing complex Tailwind class combinations
+- Preventing class conflicts
+
+## How It Works
+
+1. **`clsx`** handles:
+   - Conditional classes
+   - Arrays of classes
+   - Object notation `{ "class": condition }`
+   - Filtering falsy values
+
+2. **`tailwind-merge`** handles:
+   - Tailwind class conflicts (e.g., `px-2` vs `px-4`)
+   - Keeping only the last occurrence
+   - Understanding Tailwind's class naming patterns
+
+3. **`cn`** combines both:
+   - First processes conditionals with `clsx`
+   - Then merges Tailwind classes with `twMerge`
+
+## Dependencies
+
+The `cn` function requires two packages:
+
+```json
+{
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0"
+  }
+}
+```
+
+These are automatically installed when using the Kokonut UI CLI.
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

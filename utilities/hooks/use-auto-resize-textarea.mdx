@@ -1,0 +1,89 @@
+---
+title: useAutoResizeTextarea
+description: A hook that automatically resizes a textarea based on its content.
+icon: wrench
+---
+
+#
+
+
+A React hook that automatically adjusts textarea height based on content, with configurable min and max height constraints.
+
+## Installation
+
+This hook can be installed via the CLI:
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+ 
+```bash tab="bun"
+bunx --bun shadcn@latest add @kokonutui/use-auto-resize-textarea
+```
+ 
+```bash tab="npx"
+npx shadcn@latest add @kokonutui/use-auto-resize-textarea
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add @kokonutui/use-auto-resize-textarea
+```
+
+</Tabs>
+
+Or manually copy the hook from `/hooks/use-auto-resize-textarea.ts` into your project.
+
+## Usage
+
+```tsx
+import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
+
+function MyComponent() {
+  const { textareaRef, adjustHeight } = useAutoResizeTextarea({
+    minHeight: 100,
+    maxHeight: 400,
+  });
+
+  return (
+    <textarea
+      ref={textareaRef}
+      onChange={() => adjustHeight()}
+      className="w-full resize-none"
+    />
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+The hook accepts a configuration object with the following properties:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `minHeight` | `number` | required | Minimum height of the textarea in pixels |
+| `maxHeight` | `number` | `undefined` | Maximum height of the textarea in pixels. If not provided, textarea can grow infinitely |
+
+### Return Value
+
+Returns an object with:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `textareaRef` | `RefObject<HTMLTextAreaElement>` | Ref to attach to your textarea element |
+| `adjustHeight` | `(reset?: boolean) => void` | Function to manually trigger height adjustment. Pass `reset: true` to reset to minHeight |
+
+## Features
+
+- **Auto-resize on content change** - Call `adjustHeight()` in your `onChange` handler
+- **Window resize handling** - Automatically adjusts on window resize
+- **Min/max constraints** - Prevents textarea from becoming too small or large
+- **Manual reset** - Reset to minimum height with `adjustHeight(true)`
+
+## Use Cases
+
+- Comment boxes that grow with user input
+- Message input fields in chat applications
+- Dynamic form textareas
+- Auto-expanding note-taking interfaces
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

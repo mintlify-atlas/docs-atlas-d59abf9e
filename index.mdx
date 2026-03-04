@@ -1,97 +1,219 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Kokonut UI"
+mode: "custom"
+description: "Open-source collection of stunning React components built with Tailwind CSS, shadcn/ui and Motion"
 ---
 
-## Setting up
+<div className="relative overflow-hidden bg-gradient-to-br from-[#3bb34b] to-[#2d8a3a] dark:from-[#3bb34b] dark:to-[#2d8a3a] py-20">
+  <div className="max-w-6xl mx-auto px-6 sm:px-8">
+    <div className="text-center">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+        Kokonut UI Documentation
+      </h1>
+      <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto mb-8">
+        Beautiful, production-ready React components with animations. Built with Tailwind CSS, shadcn/ui, and Motion (Framer Motion).
+      </p>
+      <div className="flex flex-wrap gap-4 justify-center items-center">
+        <a
+          href="/installation"
+          className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-[#3bb34b] font-semibold hover:bg-gray-100 transition-colors"
+        >
+          Get Started
+        </a>
+        <a
+          href="/components/buttons/particle-button"
+          className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-white/30 bg-white/10 text-white font-semibold hover:bg-white/20 transition-colors"
+        >
+          Explore Components
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+    Quick Start
+  </h2>
+  <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
+    Get up and running with Kokonut UI components in minutes.
+  </p>
+  
+  <Steps>
+    <Step title="Install shadcn/ui CLI">
+      Initialize shadcn/ui in your Next.js project to create the `components.json` configuration file.
+      
+      ```bash
+      npx shadcn@latest init
+      ```
+    </Step>
+    
+    <Step title="Add Kokonut UI registry">
+      Add the Kokonut UI registry to your `components.json` file so you can install components via the CLI.
+      
+      ```json
+      {
+        "registries": {
+          "@kokonutui": "https://kokonutui.com/r/{name}.json"
+        }
+      }
+      ```
+    </Step>
+    
+    <Step title="Install a component">
+      Use the shadcn CLI to install any Kokonut UI component. Dependencies are automatically installed.
+      
+      ```bash
+      npx shadcn@latest add @kokonutui/particle-button
+      ```
+    </Step>
+    
+    <Step title="Use the component">
+      Import and use the component in your React application.
+      
+      ```tsx
+      import ParticleButton from "@/components/kokonutui/particle-button";
+      
+      export default function Page() {
+        return <ParticleButton />;
+      }
+      ```
+    </Step>
+  </Steps>
+</div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+    Explore by Category
+  </h2>
+  <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
+    Browse 46+ components organized by type.
+  </p>
+  
+  <CardGroup cols={3}>
     <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+      title="AI Components"
+      icon="sparkles"
+      href="/components/ai/ai-prompt"
+    >
+      Modern AI input selectors, loading states, and voice interfaces
+    </Card>
+    <Card
+      title="Buttons"
+      icon="hand-pointer"
+      href="/components/buttons/particle-button"
+    >
+      Interactive buttons with particle effects, gradients, and animations
+    </Card>
+    <Card
+      title="Cards"
+      icon="address-card"
+      href="/components/cards/liquid-glass-card"
+    >
+      Stunning card designs with glass effects, flips, and hover interactions
+    </Card>
+    <Card
+      title="Text Effects"
+      icon="font"
+      href="/components/text/type-writer"
+    >
+      Animated text components including typewriter, shimmer, and glitch effects
+    </Card>
+    <Card
+      title="Backgrounds"
+      icon="image"
+      href="/components/backgrounds/beams-background"
+    >
+      Animated backgrounds with beams, paths, and flowing shapes
+    </Card>
+    <Card
+      title="Navigation"
+      icon="bars"
+      href="/components/navigation/smooth-tab"
+    >
+      Smooth tabs, drawers, toolbars, and dropdown menus
+    </Card>
+    <Card
+      title="Inputs"
+      icon="keyboard"
+      href="/components/inputs/file-upload"
+    >
+      File uploads, search bars, and avatar pickers with animations
+    </Card>
+    <Card
+      title="Loaders"
+      icon="spinner"
+      href="/components/loaders/loader"
+    >
+      Loading animations and progress indicators
+    </Card>
+    <Card
+      title="Utilities"
+      icon="wrench"
+      href="/utilities/hooks/use-auto-resize-textarea"
+    >
+      React hooks and helper functions for common UI patterns
+    </Card>
+  </CardGroup>
+</div>
 
-## Create beautiful pages
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+    Why Kokonut UI?
+  </h2>
+  <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
+    Production-ready components with the features you need.
+  </p>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="p-6 rounded-lg border border-gray-200 dark:border-[#27272a] bg-gray-50 dark:bg-[#1a1d27]">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        Built with Modern Tools
+      </h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Leverages Tailwind CSS v4, shadcn/ui primitives, and Motion (Framer Motion v12) for smooth animations.
+      </p>
+    </div>
+    <div className="p-6 rounded-lg border border-gray-200 dark:border-[#27272a] bg-gray-50 dark:bg-[#1a1d27]">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        TypeScript First
+      </h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Full TypeScript support with complete type definitions for all components and props.
+      </p>
+    </div>
+    <div className="p-6 rounded-lg border border-gray-200 dark:border-[#27272a] bg-gray-50 dark:bg-[#1a1d27]">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        Easy Installation
+      </h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Install components via the shadcn CLI with automatic dependency resolution and configuration.
+      </p>
+    </div>
+    <div className="p-6 rounded-lg border border-gray-200 dark:border-[#27272a] bg-gray-50 dark:bg-[#1a1d27]">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        Fully Customizable
+      </h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Own the code — components are copied to your project for complete customization and control.
+      </p>
+    </div>
+  </div>
+</div>
 
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="rounded-2xl border border-gray-200 dark:border-[#27272a] bg-gradient-to-br from-gray-50 to-white dark:from-[#1a1d27] dark:to-[#0f1117] p-8 sm:p-12 text-center">
+    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+      Ready to Build Beautiful UIs?
+    </h2>
+    <p className="text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-6">
+      Start using Kokonut UI components in your Next.js projects today. Installation takes less than a minute.
+    </p>
+    <a
+      href="/installation"
+      className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[#3bb34b] text-white font-semibold hover:bg-[#2d8a3a] transition-colors"
+    >
+      Get Started Now
+    </a>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+---
+title: Attract Button
+description: An interactive button with magnetic particle effects that attract towards the center on hover.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/attract-button
+```
+
+## Usage
+
+```tsx
+import AttractButton from "@/components/kokonutui/attract-button";
+
+export default function Example() {
+  return (
+    <AttractButton 
+      particleCount={12}
+      attractRadius={50}
+    >
+      Hover me
+    </AttractButton>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `particleCount` | `number` | `12` | Number of particles to display around the button |
+| `attractRadius` | `number` | `50` | Radius in pixels for particle placement |
+| `className` | `string` | - | Additional CSS classes |
+
+## Dependencies
+
+- `motion/react` (Framer Motion) - For particle attraction animations
+- `lucide-react` - For the Magnet icon
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Magnetic particle animation on hover/touch
+- Customizable particle count
+- Spring physics for smooth animations
+- Touch-friendly interactions
+- Particles scatter when not hovering
+- Icon scales on interaction
+- Dark mode support
+- Violet color scheme

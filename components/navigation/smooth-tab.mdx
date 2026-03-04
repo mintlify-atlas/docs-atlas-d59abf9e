@@ -1,0 +1,109 @@
+---
+title: Smooth Tab
+description: Animated tab switcher with smooth transitions and card content display
+icon: bars
+---
+
+An animated tab component with smooth slide transitions and customizable card content for each tab. Features motion animations powered by Framer Motion.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/smooth-tab
+```
+
+## Usage
+
+```tsx
+import SmoothTab from "@/components/kokonutui/smooth-tab";
+
+export default function Example() {
+  return (
+    <SmoothTab />
+  );
+}
+```
+
+## Props
+
+<ResponseField name="items" type="TabItem[]" default="DEFAULT_TABS">
+  Array of tab items to display. Each item includes:
+  - `id` (string): Unique identifier for the tab
+  - `title` (string): Display text for the tab
+  - `icon` (LucideIcon, optional): Icon component to display
+  - `content` (ReactNode, optional): Content to show when tab is active
+  - `cardContent` (ReactNode, optional): Card content to display above tabs
+  - `color` (string): Background color classes for the tab (e.g., "bg-blue-500 hover:bg-blue-600")
+</ResponseField>
+
+<ResponseField name="defaultTabId" type="string" default="first item id">
+  ID of the tab that should be selected by default
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS classes to apply to the tab container
+</ResponseField>
+
+<ResponseField name="activeColor" type="string" default="bg-[#1F9CFE]">
+  Background color for the active tab sliding indicator
+</ResponseField>
+
+<ResponseField name="onChange" type="(tabId: string) => void">
+  Callback function triggered when tab selection changes
+</ResponseField>
+
+## Features
+
+- **Smooth Animations**: Slide transitions with blur and scale effects using Framer Motion
+- **Card Content Display**: Shows customizable card content above the tab bar
+- **Sliding Indicator**: Animated background that smoothly moves to the active tab
+- **Keyboard Accessible**: Supports Enter and Space key navigation
+- **Responsive Layout**: Automatically adjusts to container width
+- **Customizable Colors**: Each tab can have its own color scheme
+
+## Example with Custom Tabs
+
+```tsx
+import SmoothTab from "@/components/kokonutui/smooth-tab";
+import { Home, Settings, User } from "lucide-react";
+
+const customTabs = [
+  {
+    id: "home",
+    title: "Home",
+    icon: Home,
+    color: "bg-blue-500 hover:bg-blue-600",
+    cardContent: <div>Home Content</div>
+  },
+  {
+    id: "settings",
+    title: "Settings",
+    icon: Settings,
+    color: "bg-purple-500 hover:bg-purple-600",
+    cardContent: <div>Settings Content</div>
+  },
+  {
+    id: "profile",
+    title: "Profile",
+    icon: User,
+    color: "bg-emerald-500 hover:bg-emerald-600",
+    cardContent: <div>Profile Content</div>
+  }
+];
+
+export default function Example() {
+  return (
+    <SmoothTab 
+      items={customTabs}
+      defaultTabId="home"
+      onChange={(tabId) => console.log("Selected:", tabId)}
+    />
+  );
+}
+```
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `lucide-react`
+- `@/lib/utils` (cn utility)

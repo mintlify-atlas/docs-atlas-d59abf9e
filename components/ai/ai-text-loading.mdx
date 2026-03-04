@@ -1,0 +1,215 @@
+---
+title: AI Text Loading
+description: Thinking mode.
+icon: SquareStack
+full: false
+---
+
+#
+
+
+import AITextLoading from "@/components/kokonutui/ai-text-loading";
+
+<Preview link="ai-text-loading" comment={["Motion"]}>
+    <AITextLoading />
+</Preview>
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/ai-text-loading
+```
+
+## Overview
+
+A minimalist yet elegant text-based loading indicator that cycles through different status messages with a smooth gradient shimmer effect. Perfect for displaying AI processing states in a clean, unobtrusive way.
+
+## Features
+
+- Smooth text transitions with fade and slide animations
+- Animated gradient shimmer effect on text
+- Customizable text array and timing
+- Fully responsive sizing
+- Dark mode support with automatic gradient adjustment
+- Zero-dependency animations via Framer Motion
+
+## Props
+
+```typescript
+interface AITextLoadingProps {
+  texts?: string[];       // Array of status messages to cycle through
+  className?: string;     // Additional CSS classes
+  interval?: number;      // Time between text changes (ms)
+}
+```
+
+### Default Props
+
+```typescript
+texts = [
+  "Thinking...",
+  "Processing...",
+  "Analyzing...",
+  "Computing...",
+  "Almost...",
+]
+interval = 1500 // milliseconds
+```
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import AITextLoading from "@/components/kokonutui/ai-text-loading";
+
+export default function LoadingPage() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <AITextLoading />
+    </div>
+  );
+}
+```
+
+### Custom Messages
+
+```tsx
+<AITextLoading
+  texts={[
+    "Searching...",
+    "Reading documents...",
+    "Synthesizing information...",
+    "Generating response...",
+  ]}
+  interval={2000}
+/>
+```
+
+### With Custom Styling
+
+```tsx
+<AITextLoading
+  className="text-5xl font-extrabold"
+  texts={["Loading...", "Please wait..."]}
+/>
+```
+
+## Animation Details
+
+### Text Transition
+
+The component uses Framer Motion's `AnimatePresence` for smooth enter/exit animations:
+
+```typescript
+initial={{ opacity: 0, y: 20 }}      // Enters from below
+animate={{ opacity: 1, y: 0 }}        // Fades in and slides up
+exit={{ opacity: 0, y: -20 }}         // Exits upward
+```
+
+### Gradient Shimmer
+
+The text features an animated gradient that sweeps across:
+
+```typescript
+animate={{
+  backgroundPosition: ["200% center", "-200% center"],
+}}
+transition={{
+  backgroundPosition: {
+    duration: 2.5,
+    ease: "linear",
+    repeat: Infinity,
+  },
+}}
+```
+
+Gradient colors:
+- **Light mode**: `neutral-950` → `neutral-400` → `neutral-950`
+- **Dark mode**: `white` → `neutral-600` → `white`
+
+## Customization
+
+### Change Animation Speed
+
+```tsx
+<AITextLoading interval={1000} /> // Faster switching
+<AITextLoading interval={3000} /> // Slower switching
+```
+
+### Modify Gradient Colors
+
+Edit the gradient classes in the component:
+
+```typescript
+className="bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600"
+```
+
+### Adjust Text Size
+
+```tsx
+<AITextLoading className="text-xl" />  // Smaller
+<AITextLoading className="text-6xl" /> // Larger
+```
+
+## Use Cases
+
+1. **AI Chat Loading**: Show while waiting for AI response
+2. **Search Processing**: Display during search operations
+3. **Data Analysis**: Indicate ongoing computation
+4. **File Processing**: Show upload/processing status
+5. **General Loading**: Any async operation requiring user feedback
+
+## Integration Example
+
+```tsx
+import { useState, useEffect } from "react";
+import AITextLoading from "@/components/kokonutui/ai-text-loading";
+
+export default function ChatInterface() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState("");
+
+  const handleQuery = async (query: string) => {
+    setIsLoading(true);
+    const result = await fetchAIResponse(query);
+    setResponse(result);
+    setIsLoading(false);
+  };
+
+  return (
+    <div>
+      {isLoading ? (
+        <AITextLoading texts={["Thinking...", "Generating response..."]} />
+      ) : (
+        <div>{response}</div>
+      )}
+    </div>
+  );
+}
+```
+
+## Dependencies
+
+- `motion` (framer-motion) - Animations and transitions
+- `@/lib/utils` - cn utility for className merging
+
+## Accessibility
+
+The component automatically handles:
+- Semantic HTML structure
+- Readable text contrast in both light/dark modes
+- Smooth, non-jarring animations
+
+Consider adding ARIA labels for screen readers:
+
+```tsx
+<div role="status" aria-live="polite">
+  <AITextLoading />
+</div>
+```
+
+## Related Components
+
+- [AI Loading](/components/ai/ai-loading) - More detailed loading state with progress
+- [AI Voice](/components/ai/ai-voice) - Voice recording indicator

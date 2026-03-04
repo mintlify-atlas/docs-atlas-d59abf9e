@@ -1,0 +1,107 @@
+---
+title: Bento Grid
+description: A responsive bento-style grid layout with animated cards featuring various content types and interactive elements.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/bento-grid"
+```
+
+## Usage
+
+```tsx
+import BentoGrid from "@/components/kokonutui/bento-grid";
+
+export default function Example() {
+  return <BentoGrid />;
+}
+```
+
+## Features
+
+- **Multiple Card Types**: Supports 8 different feature types (spotlight, counter, code, timeline, icons, typing, metrics, chart)
+- **3D Tilt Effect**: Magnetic mouse tracking with 3D transformations
+- **Animations**: Staggered entrance animations using Framer Motion
+- **Responsive Grid**: Adapts to different screen sizes
+- **Interactive Elements**: Hover effects, glow layers, and shimmer sweeps
+
+## Card Feature Types
+
+### Spotlight
+Displays a list of items with checkmark icons.
+
+### Counter
+Animated number counter with suffix support.
+
+### Chart
+Progress bar with animated fill.
+
+### Timeline
+Vertical timeline with year markers and events.
+
+### Icons
+Grid of provider/partner icons (OpenAI, Anthropic, Google, Mistral, DeepSeek).
+
+### Typing
+Code editor with typewriter effect.
+
+### Metrics
+Multiple progress bars with labels and values.
+
+### Voice Input
+Animated voice waveform visualization.
+
+## BentoItem Interface
+
+```tsx
+interface BentoItem {
+  id: string;
+  title: string;
+  description: string;
+  href?: string;
+  feature?: "chart" | "counter" | "code" | "timeline" | "spotlight" | "icons" | "typing" | "metrics";
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  // Feature-specific props
+  spotlightItems?: string[];
+  timeline?: Array<{ year: string; event: string }>;
+  typingText?: string;
+  metrics?: Array<{ label: string; value: number; suffix?: string; color?: string }>;
+  statistic?: { value: string; label: string; start?: number; end?: number; suffix?: string };
+}
+```
+
+## Customization
+
+Modify the `bentoItems` array to customize content:
+
+```tsx
+const customItems: BentoItem[] = [
+  {
+    id: "custom",
+    title: "Your Feature",
+    description: "Description here",
+    feature: "spotlight",
+    spotlightItems: ["Item 1", "Item 2", "Item 3"],
+    className: "col-span-2"
+  }
+];
+```
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `lucide-react`
+- `next/link`
+- `@/components/icons/*` (AI vendor icons)
+- `@/lib/utils`
+
+## Animation Details
+
+- **Card Entrance**: Fade in from bottom with stagger delay
+- **3D Tilt**: Mouse-reactive rotation on X and Y axes
+- **Hover State**: Lift and border color transition
+- **Feature Animations**: Each feature type has custom entrance animations

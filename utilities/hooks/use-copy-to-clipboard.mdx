@@ -1,0 +1,116 @@
+---
+title: useCopyToClipboard
+description: A hook for copying text to clipboard with feedback state.
+icon: wrench
+---
+
+#
+
+
+A React hook that provides an easy way to copy text to the clipboard with automatic state management for showing copy feedback.
+
+## Installation
+
+This hook can be installed via the CLI:
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+ 
+```bash tab="bun"
+bunx --bun shadcn@latest add @kokonutui/use-copy-to-clipboard
+```
+ 
+```bash tab="npx"
+npx shadcn@latest add @kokonutui/use-copy-to-clipboard
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add @kokonutui/use-copy-to-clipboard
+```
+
+</Tabs>
+
+Or manually copy the hook from `/hooks/use-copy-to-clipboard.ts` into your project.
+
+## Usage
+
+```tsx
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+
+function CodeBlock({ code }: { code: string }) {
+  const { isCopied, copyToClipboard } = useCopyToClipboard();
+
+  return (
+    <div className="relative">
+      <pre>{code}</pre>
+      <button
+        onClick={() => copyToClipboard(code)}
+        className="absolute top-2 right-2"
+      >
+        {isCopied ? "Copied!" : "Copy"}
+      </button>
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+The hook accepts an optional configuration object:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `timeout` | `number` | `2000` | Duration in milliseconds before `isCopied` resets to false |
+| `onCopy` | `() => void` | `undefined` | Optional callback function to execute after successful copy |
+
+### Return Value
+
+Returns an object with:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `isCopied` | `boolean` | Whether text was recently copied (true during timeout period) |
+| `copyToClipboard` | `(value: string) => void` | Function to copy text to clipboard |
+
+## Features
+
+- **Automatic state management** - `isCopied` automatically resets after timeout
+- **Custom timeout** - Configure how long the copied state persists
+- **Callback support** - Execute custom logic after copying
+- **Browser compatibility check** - Safely handles environments without clipboard API
+
+## Example with Custom Timeout
+
+```tsx
+function MyComponent() {
+  const { isCopied, copyToClipboard } = useCopyToClipboard({
+    timeout: 3000, // 3 seconds
+    onCopy: () => {
+      console.log("Text copied!");
+    },
+  });
+
+  return (
+    <button onClick={() => copyToClipboard("Hello World")}>
+      {isCopied ? "✓ Copied" : "Copy Text"}
+    </button>
+  );
+}
+```
+
+## Use Cases
+
+- Copy buttons for code blocks
+- Share link functionality
+- Copy API keys or tokens
+- Copy formatted text or JSON
+- Copy-to-clipboard for contact information
+
+## Notes
+
+- Requires modern browser with Clipboard API support
+- Only works in secure contexts (HTTPS or localhost)
+- Automatically handles server-side rendering (no errors)
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

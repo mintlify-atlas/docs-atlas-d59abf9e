@@ -1,0 +1,84 @@
+---
+title: Liquid Glass Card
+description: A card component with liquid glass morphism effect featuring SVG filters and glassmorphism aesthetics.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/liquid-glass-card"
+```
+
+## Usage
+
+```tsx
+import { LiquidGlassCard, LiquidButton } from "@/components/kokonutui/liquid-glass-card";
+
+export default function Example() {
+  return (
+    <LiquidGlassCard>
+      <h3>Your Content Here</h3>
+      <p>Card content with glass effect</p>
+      <LiquidButton>Click Me</LiquidButton>
+    </LiquidGlassCard>
+  );
+}
+```
+
+## Components
+
+### LiquidGlassCard
+
+Main card component with liquid glass effect using SVG displacement filters.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `glassSize` | `"sm" \| "default" \| "lg"` | `"default"` | Size variant for card padding |
+| `glassEffect` | `boolean` | `true` | Enable/disable glass effect |
+| `className` | `string` | - | Additional CSS classes |
+| `children` | `ReactNode` | - | Card content |
+
+### LiquidButton
+
+Button component with liquid glass effect.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `liquidVariant` | `"default" \| "none"` | `"default"` | Liquid effect variant |
+| Inherits all props from shadcn Button | | | |
+
+## Features
+
+- SVG filter-based glass distortion effect
+- Customizable glass filter scale
+- Hover shimmer animations
+- Multiple size variants
+- Built on shadcn/ui Card component
+- Fully accessible
+
+## Example: Music Player
+
+The component includes a complete music player demo (`NotificationCenter`) showcasing:
+- Play/pause controls
+- Progress bar with seeking
+- Volume visualization bars
+- Time formatting
+- Responsive design
+
+## Dependencies
+
+- `@/components/ui/button` (shadcn)
+- `@/components/ui/card` (shadcn)
+- `class-variance-authority`
+- `lucide-react`
+- `next/image`
+- `@/lib/utils`
+
+## Technical Details
+
+The glass effect uses SVG `feTurbulence`, `feDisplacementMap`, and `feGaussianBlur` filters to create a liquid distortion effect. The filter is applied via `backdropFilter` CSS property with a unique ID per component instance.

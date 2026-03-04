@@ -1,0 +1,112 @@
+---
+title: Loader
+description: An elegant animated loading spinner with customizable text and sizing
+icon: spinner
+---
+
+A sophisticated loading component featuring multiple animated concentric rings with conic gradients, supporting both light and dark modes. Perfect for loading states, splash screens, and async operations.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/loader
+```
+
+## Usage
+
+```tsx
+import Loader from "@/components/kokonutui/loader";
+
+export default function LoadingPage() {
+  return (
+    <Loader
+      title="Configuring your account..."
+      subtitle="Please wait while we prepare everything for you"
+      size="md"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="title" type="string" default="Configuring your account...">
+  Main loading message displayed below the spinner
+</ParamField>
+
+<ParamField path="subtitle" type="string" default="Please wait while we prepare everything for you">
+  Secondary descriptive text with lower opacity
+</ParamField>
+
+<ParamField path="size" type="'sm' | 'md' | 'lg'" default="md">
+  Spinner size preset:
+  - `sm`: 80px (5rem) spinner
+  - `md`: 128px (8rem) spinner
+  - `lg`: 160px (10rem) spinner
+</ParamField>
+
+<ParamField path="className" type="string">
+  Additional CSS classes to apply to the container
+</ParamField>
+
+## Size Configurations
+
+Each size preset includes coordinated typography and spacing:
+
+### Small (`sm`)
+- Spinner: 80px (20rem)
+- Title: `text-sm/tight font-medium`
+- Subtitle: `text-xs/relaxed`
+- Max width: 192px (48rem)
+
+### Medium (`md`)
+- Spinner: 128px (32rem)
+- Title: `text-base/snug font-medium`
+- Subtitle: `text-sm/relaxed`
+- Max width: 224px (56rem)
+
+### Large (`lg`)
+- Spinner: 160px (40rem)
+- Title: `text-lg/tight font-semibold`
+- Subtitle: `text-base/relaxed`
+- Max width: 256px (64rem)
+
+## Features
+
+- **Multi-Ring Animation**: Four concentric rings rotating at different speeds and directions
+- **Dark Mode**: Automatically adapts colors for light and dark themes
+- **Smooth Transitions**: Staggered fade-in animations for text elements
+- **Breathing Effect**: Subtle opacity pulsing on title and subtitle text
+- **Scale Animation**: Gentle scale animation on entire spinner for added depth
+- **Monochrome Design**: Clean black/white aesthetic that fits any brand
+
+## Animation Details
+
+The loader uses multiple animation layers:
+
+1. **Outer Ring** (3s rotation): Elegant shimmer effect
+2. **Primary Ring** (2.5s rotation): Main gradient spinner
+3. **Secondary Ring** (4s counter-rotation): Adds visual depth
+4. **Accent Particles** (3.5s rotation): Subtle motion accents
+
+Text animations:
+- **Container**: Fades in with 8px upward motion (400ms delay)
+- **Title**: Opacity pulses between 90% and 70% (3s cycle)
+- **Subtitle**: Opacity pulses between 60% and 40% (4s cycle)
+
+## Dark Mode
+
+The component includes duplicate ring layers specifically for dark mode, automatically shown/hidden using Tailwind's `dark:` variants. All animations remain consistent across themes.
+
+## Accessibility
+
+The loader uses semantic HTML and readable color contrasts:
+- Title: 90% opacity on foreground color
+- Subtitle: 60% opacity on foreground color
+- Negative letter-spacing for crisp rendering
+- Antialiased text for smooth appearance
+
+## Dependencies
+
+- `motion` (Framer Motion) - Animation library
+- `react` - Core React library

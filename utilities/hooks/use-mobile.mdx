@@ -1,0 +1,168 @@
+---
+title: useIsMobile
+description: A hook to detect if the viewport is mobile-sized.
+icon: wrench
+---
+
+#
+
+
+A React hook that detects whether the current viewport is mobile-sized (below 768px width) using the window matchMedia API.
+
+## Installation
+
+This hook can be installed via the CLI:
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+ 
+```bash tab="bun"
+bunx --bun shadcn@latest add @kokonutui/use-mobile
+```
+ 
+```bash tab="npx"
+npx shadcn@latest add @kokonutui/use-mobile
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add @kokonutui/use-mobile
+```
+
+</Tabs>
+
+Or manually copy the hook from `/hooks/use-mobile.ts` into your project.
+
+## Usage
+
+```tsx
+import { useIsMobile } from "@/hooks/use-mobile";
+
+function ResponsiveComponent() {
+  const isMobile = useIsMobile();
+
+  return (
+    <div>
+      {isMobile ? (
+        <MobileNavigation />
+      ) : (
+        <DesktopNavigation />
+      )}
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+This hook accepts no parameters.
+
+### Return Value
+
+Returns a `boolean`:
+- `true` if viewport width is less than 768px
+- `false` if viewport width is 768px or greater
+
+## Features
+
+- **Responsive detection** - Automatically updates on window resize
+- **Performance optimized** - Uses native matchMedia API
+- **SSR safe** - Returns `false` during server-side rendering
+- **Standard breakpoint** - Uses 768px (common Tailwind `md:` breakpoint)
+
+## Example: Conditional Rendering
+
+```tsx
+function Navigation() {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <nav className="fixed bottom-0 w-full">
+        <MobileMenu />
+      </nav>
+    );
+  }
+
+  return (
+    <nav className="flex items-center justify-between">
+      <Logo />
+      <DesktopMenu />
+    </nav>
+  );
+}
+```
+
+## Example: Different Layouts
+
+```tsx
+function Dashboard() {
+  const isMobile = useIsMobile();
+
+  return (
+    <div className={isMobile ? "flex-col" : "flex-row"}>
+      <Sidebar collapsed={isMobile} />
+      <MainContent fullWidth={isMobile} />
+    </div>
+  );
+}
+```
+
+## Example: Modal Behavior
+
+```tsx
+function SearchModal() {
+  const isMobile = useIsMobile();
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Dialog
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      fullScreen={isMobile}
+    >
+      <SearchContent />
+    </Dialog>
+  );
+}
+```
+
+## Use Cases
+
+- Conditional component rendering for mobile/desktop
+- Responsive navigation switching
+- Different modal/drawer behaviors
+- Touch vs. hover interaction patterns
+- Layout adjustments beyond CSS media queries
+- Feature toggling based on device size
+
+## Breakpoint
+
+The hook uses a breakpoint of **768px**, which corresponds to:
+- Tailwind CSS `md:` breakpoint
+- Bootstrap `md` breakpoint
+- iPad portrait width
+
+This is the standard boundary between mobile and tablet/desktop layouts.
+
+## Performance
+
+- Uses `window.matchMedia()` which is more efficient than resize event listeners
+- Automatically subscribes/unsubscribes to media query changes
+- No polling or repeated calculations
+- Minimal re-renders
+
+## SSR Considerations
+
+- Returns `false` on initial server-side render
+- Hydrates with correct value on client
+- Consider using CSS media queries for critical above-the-fold content to avoid layout shifts
+
+## Notes
+
+- The hook starts with `undefined` state and updates after first render
+- Returns `false` if `window` is not available (SSR)
+- Updates automatically on window resize
+- Event listeners are properly cleaned up on unmount
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

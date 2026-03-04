@@ -1,0 +1,54 @@
+---
+title: Particle Button
+description: An interactive button that creates particle animations when clicked, with customizable success duration.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/particle-button
+```
+
+## Usage
+
+```tsx
+import ParticleButton from "@/components/kokonutui/particle-button";
+
+export default function Example() {
+  return (
+    <ParticleButton 
+      successDuration={1000}
+      onSuccess={() => console.log("Success!")}
+    >
+      Click me!
+    </ParticleButton>
+  );
+}
+```
+
+## Props
+
+The `ParticleButton` component extends all standard HTML button props and includes:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onSuccess` | `() => void` | `undefined` | Callback function triggered on successful click |
+| `successDuration` | `number` | `1000` | Duration in milliseconds for the particle animation |
+| `children` | `ReactNode` | - | Button content |
+| `className` | `string` | - | Additional CSS classes |
+
+## Dependencies
+
+- `motion/react` (Framer Motion) - For particle animations
+- `lucide-react` - For the MousePointerClick icon
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Particle explosion animation on click
+- Customizable animation duration
+- Success callback support
+- Scale animation on interaction
+- Dark mode support

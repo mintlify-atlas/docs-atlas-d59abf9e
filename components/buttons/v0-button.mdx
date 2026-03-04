@@ -1,0 +1,58 @@
+---
+title: V0 Button
+description: A branded button for opening components in Vercel's v0 platform.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/v0-button
+```
+
+## Usage
+
+```tsx
+import V0Button from "@/components/kokonutui/v0-button";
+
+export default function Example() {
+  return <V0Button />;
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | - | Additional CSS classes |
+
+Extends all standard Button component props from `@/components/ui/button`.
+
+## Dependencies
+
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Opens links in new tab with security attributes
+- V0 logo SVG integrated
+- Smooth hover transitions
+- Dark mode support (inverts colors)
+- Black background in light mode
+- White background in dark mode
+- Small, compact design
+- No prose styling (for documentation contexts)
+
+## Integration
+
+The button includes the `asChild` prop to render as an anchor tag, making it perfect for external links while maintaining button styling.
+
+## Note
+
+The current implementation links to a sample v0 community project. The component includes a TODO comment to customize the URL based on your component registry path:
+
+```tsx
+// TODO: Add the correct path
+// href={`https://v0.dev/chat/api/open?url=${prePath}/r/${name}.json`}
+```

@@ -1,0 +1,311 @@
+---
+title: Flow Field
+description: A mesmerizing particle system that flows through an organic noise field, creating luminous animated trails
+icon: "image"
+---
+
+## Overview
+
+Flow Field is a canvas-based particle animation component that simulates thousands of particles flowing through an organic noise field. The particles leave luminous trails creating a mesmerizing, ever-evolving visual effect perfect for hero sections and backgrounds.
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+    ```bash
+    npx shadcn@latest add https://kokonutui.com/r/flow-field
+    ```
+  </Tab>
+  <Tab value="Manual">
+    <Steps>
+      <Step>Install dependencies</Step>
+      ```bash
+      npm install motion
+      ```
+      
+      <Step>Copy the component source</Step>
+      Copy the component code from [flow-field.tsx](https://github.com/kokonut-labs/kokonutui/blob/main/components/kokonutui/flow-field.tsx) into your project at `components/kokonutui/flow-field.tsx`
+      
+      <Step>Update imports</Step>
+      Make sure you have the `cn` utility function from `@/lib/utils`
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes for the container |
+| `children` | `ReactNode` | Default hero content | Custom content to display over the animation |
+| `theme` | `"aurora" \| "ember" \| "ocean"` | `"aurora"` | Color theme for the particles |
+| `density` | `"sparse" \| "medium" \| "dense"` | `"medium"` | Number of particles (600/1200/2000) |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import FlowField from "@/components/kokonutui/flow-field";
+
+export default function Page() {
+  return <FlowField />;
+}
+```
+
+### With Different Themes
+
+```tsx
+import FlowField from "@/components/kokonutui/flow-field";
+
+export default function Page() {
+  return (
+    <>
+      {/* Green-purple aurora theme (default) */}
+      <FlowField theme="aurora" />
+      
+      {/* Red-orange ember theme */}
+      <FlowField theme="ember" />
+      
+      {/* Blue-cyan ocean theme */}
+      <FlowField theme="ocean" />
+    </>
+  );
+}
+```
+
+### With Different Densities
+
+```tsx
+import FlowField from "@/components/kokonutui/flow-field";
+
+export default function Page() {
+  return (
+    <>
+      {/* 600 particles - subtle, performance-friendly */}
+      <FlowField density="sparse" />
+      
+      {/* 1200 particles - balanced (default) */}
+      <FlowField density="medium" />
+      
+      {/* 2000 particles - dense, dramatic effect */}
+      <FlowField density="dense" />
+    </>
+  );
+}
+```
+
+### Custom Content
+
+```tsx
+import FlowField from "@/components/kokonutui/flow-field";
+
+export default function HeroSection() {
+  return (
+    <FlowField theme="ocean" density="dense">
+      <div className="relative z-10 text-center">
+        <h1 className="text-7xl font-bold text-white">
+          Welcome to the Future
+        </h1>
+        <p className="mt-4 text-xl text-white/70">
+          Experience the next generation of design
+        </p>
+        <button className="mt-8 rounded-lg bg-white px-8 py-3 text-lg font-semibold text-black">
+          Get Started
+        </button>
+      </div>
+    </FlowField>
+  );
+}
+```
+
+## Color Themes
+
+### Aurora (Default)
+- **Hue Range**: 120-320 (green → blue → purple)
+- **Background**: Very dark blue-gray (5, 5, 8)
+- **Saturation**: 90%
+- **Lightness**: 62%
+- **Effect**: Ethereal, northern-lights inspired
+
+### Ember
+- **Hue Range**: 0-55 (red → orange → yellow)
+- **Background**: Very dark brown (8, 4, 2)
+- **Saturation**: 95%
+- **Lightness**: 58%
+- **Effect**: Warm, fire-like glow
+
+### Ocean
+- **Hue Range**: 180-270 (cyan → blue)
+- **Background**: Very dark blue (2, 6, 10)
+- **Saturation**: 88%
+- **Lightness**: 60%
+- **Effect**: Cool, underwater atmosphere
+
+## Particle Densities
+
+| Density | Particles | Use Case |
+|---------|-----------|----------|
+| `sparse` | 600 | Subtle effect, better performance, minimal distraction |
+| `medium` | 1200 | Balanced effect, good performance (default) |
+| `dense` | 2000 | Dramatic effect, more visual impact, higher GPU usage |
+
+## Features
+
+- **Noise-Driven Motion**: Particles follow an organic vector field based on multi-octave trigonometric noise
+- **Luminous Trails**: Each particle leaves a glowing trail that fades over time
+- **Color Shifting**: Particle colors shift based on flow direction for variety
+- **Lifecycle Fading**: Particles fade in and out smoothly during their lifetime
+- **Edge Wrapping**: Particles wrap around screen edges for seamless animation
+- **Responsive**: Automatically adapts to window size with device pixel ratio support
+- **Performance Optimized**: Efficient canvas rendering with requestAnimationFrame
+- **Three Themes**: Aurora, Ember, and Ocean color schemes
+- **Vignette Effect**: Radial gradient overlay focuses attention on center content
+
+## How It Works
+
+### Noise Field
+
+The `fieldAngle` function generates a continuously evolving 2D noise field:
+
+```tsx
+function fieldAngle(x: number, y: number, t: number): number {
+  // Combines multiple sine/cosine waves at different frequencies
+  // Returns an angle in radians that changes over time
+}
+```
+
+This creates organic, flowing patterns rather than rigid geometric motion.
+
+### Particle Behavior
+
+1. **Spawn**: Particles start at random positions with random lifespans (200-500 frames)
+2. **Flow**: Each frame, particles query the noise field and move in that direction
+3. **Fade**: Particles fade in over first 12.5% of life, fade out over last 16%
+4. **Respawn**: When a particle's life expires, it respawns at a new random location
+5. **Trail**: Canvas fade effect creates trailing effect behind each particle
+
+### Rendering Pipeline
+
+1. Apply semi-transparent overlay (fades previous frame by ~6-7%)
+2. For each particle:
+   - Calculate flow field angle at particle position
+   - Update position based on angle and speed
+   - Calculate fade-in/fade-out alpha
+   - Shift hue based on flow direction
+   - Draw particle as small circle (1.3px radius)
+3. Request next animation frame
+
+## Customization
+
+### Creating Custom Themes
+
+You can modify the `THEMES` constant in the source to add custom color schemes:
+
+```tsx
+const THEMES: Record<ColorTheme, ThemeConfig> = {
+  // ... existing themes
+  custom: {
+    hueStart: 270,      // Starting hue (purple)
+    hueRange: 90,       // Range to sweep through
+    saturation: 85,     // Color saturation %
+    lightness: 65,      // Color lightness %
+    bg: "10, 5, 15",   // RGB background
+    trailAlpha: 0.05,   // Trail fade rate
+  },
+};
+```
+
+### Adjusting Particle Count
+
+Modify the `PARTICLE_COUNTS` constant:
+
+```tsx
+const PARTICLE_COUNTS: Record<ParticleDensity, number> = {
+  sparse: 400,   // Fewer particles
+  medium: 1200,  // Default
+  dense: 3000,   // More particles
+};
+```
+
+### Tuning the Flow Field
+
+In the `fieldAngle` function, adjust:
+
+```tsx
+const s = 0.0025;  // Scale factor (smaller = larger patterns)
+
+// Time multipliers (adjust animation speed)
+Math.sin(x * s + t * 0.0007)  // Slower
+Math.sin(x * s + t * 0.002)   // Faster
+```
+
+## Performance Considerations
+
+- **Canvas Size**: Uses `devicePixelRatio` for sharp rendering on high-DPI displays
+- **Frame Rate**: Runs at ~60fps via `requestAnimationFrame`
+- **Memory**: Particle array is reused, not recreated each frame
+- **GPU**: Canvas rendering is hardware-accelerated in modern browsers
+- **Density Impact**: Dense mode (2000 particles) uses ~3x CPU/GPU vs sparse mode
+
+### Performance Tips
+
+1. Use `sparse` density on mobile devices
+2. Use `medium` or `dense` on desktop with good GPUs
+3. Consider reducing particle count for lower-end devices
+4. The component automatically cleans up on unmount
+
+## Dependencies
+
+- `motion` (Framer Motion) - For content fade-in animations
+- `react` - Core hooks (useEffect, useRef)
+- `cn` utility - For className merging (from shadcn/ui)
+
+## Accessibility
+
+- Canvas is marked with `aria-hidden="true"` (decorative only)
+- Vignette overlays are also `aria-hidden`
+- Ensure custom content has proper semantic structure
+- Component respects `prefers-reduced-motion` through Framer Motion
+
+## Browser Support
+
+Works in all modern browsers that support:
+- HTML Canvas 2D Context
+- requestAnimationFrame
+- CSS radial/linear gradients
+- ES6+ JavaScript (arrow functions, const/let, template literals)
+
+## Advanced Use Cases
+
+### Combining with Scroll Effects
+
+```tsx
+import { useScroll, useTransform } from "motion/react";
+import FlowField from "@/components/kokonutui/flow-field";
+
+export default function ScrollHero() {
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  
+  return (
+    <motion.div style={{ opacity }}>
+      <FlowField theme="aurora" />
+    </motion.div>
+  );
+}
+```
+
+### Section Background
+
+```tsx
+<section className="relative">
+  <div className="absolute inset-0 overflow-hidden">
+    <FlowField theme="ember" density="sparse" />
+  </div>
+  
+  <div className="relative z-10 py-20">
+    {/* Your section content */}
+  </div>
+</section>
+```

@@ -1,0 +1,163 @@
+---
+title: Background Paths
+description: Animated flowing SVG paths that create elegant wave patterns in the background
+icon: "image"
+---
+
+## Overview
+
+Background Paths is an SVG-based animated background component featuring flowing, wave-like paths that create an elegant and dynamic visual effect. The paths are generated procedurally and animated with smooth motion.
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+    ```bash
+    npx shadcn@latest add https://kokonutui.com/r/background-paths
+    ```
+  </Tab>
+  <Tab value="Manual">
+    <Steps>
+      <Step>Install dependencies</Step>
+      ```bash
+      npm install motion
+      ```
+      
+      <Step>Copy the component source</Step>
+      Copy the component code from [background-paths.tsx](https://github.com/kokonut-labs/kokonutui/blob/main/components/kokonutui/background-paths.tsx) into your project at `components/kokonutui/background-paths.tsx`
+      
+      <Step>Update imports</Step>
+      Ensure your project has the required utilities set up
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `"Background Paths"` | The title text to display in the center |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import BackgroundPaths from "@/components/kokonutui/background-paths";
+
+export default function Page() {
+  return <BackgroundPaths />;
+}
+```
+
+### Custom Title
+
+```tsx
+import BackgroundPaths from "@/components/kokonutui/background-paths";
+
+export default function Page() {
+  return <BackgroundPaths title="Welcome to Our Platform" />;
+}
+```
+
+### As a Section Background
+
+```tsx
+import BackgroundPaths from "@/components/kokonutui/background-paths";
+
+export default function HeroSection() {
+  return (
+    <div className="relative">
+      <BackgroundPaths title="" /> {/* Empty title for custom content */}
+      
+      {/* Your custom content here */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold">Your Custom Hero</h1>
+          <p className="text-xl">Add any content you want</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+## Features
+
+- **SVG-Based**: Scalable vector graphics for crisp rendering at any size
+- **Procedural Generation**: Paths are mathematically generated for organic curves
+- **Three Wave Layers**: Primary, secondary, and accent waves for depth
+- **Gradient Colors**: Beautiful purple-to-pink-to-blue gradient
+- **Smooth Animations**: Subtle floating motion using Framer Motion
+- **Dark Mode Support**: Adapts colors for light and dark themes
+- **Optimized Performance**: Uses React.memo for efficient re-rendering
+- **Responsive**: Scales beautifully on all screen sizes
+
+## How It Works
+
+The component generates three types of animated paths:
+
+1. **Primary Paths** (12 paths): Largest amplitude waves with highest opacity
+2. **Secondary Paths** (15 paths): Medium-sized waves with moderate opacity
+3. **Accent Paths** (10 paths): Subtle waves for additional depth
+
+Each path:
+- Uses Bézier curves for smooth, organic shapes
+- Has unique wave frequency and amplitude
+- Animates vertically with different durations
+- Features gradient strokes from purple to pink to blue
+
+### Path Generation Algorithm
+
+The `generateAestheticPath` function:
+1. Creates points along a curved trajectory
+2. Applies multiple sine/cosine waves for organic variation
+3. Uses easing functions for natural flow
+4. Combines waves with different frequencies for complexity
+
+## Components Structure
+
+The component is split into optimized sub-components:
+
+- **FloatingPaths**: Memoized SVG path renderer
+- **AnimatedTitle**: Memoized title with fade-in animation
+- **BackgroundPaths**: Main container component (default export)
+
+All components use `React.memo()` to prevent unnecessary re-renders.
+
+## Dependencies
+
+- `motion` (Framer Motion) - For smooth animations
+- `react` - Core React features (memo, useMemo)
+
+## Customization
+
+To customize the wave patterns, you can modify these values in the source:
+
+```tsx
+// Number of paths per layer
+const primaryPaths = Array.from({ length: 12 }, ...)
+const secondaryPaths = Array.from({ length: 15 }, ...)
+const accentPaths = Array.from({ length: 10 }, ...)
+
+// Wave amplitudes (in baseAmplitude)
+type === "primary" ? 150 : type === "secondary" ? 100 : 60
+
+// Animation durations
+const duration = type === "primary" ? 25 : type === "secondary" ? 20 : 15
+```
+
+## Performance Notes
+
+- All paths are memoized with `useMemo` to avoid recalculation
+- Components use `React.memo` to prevent unnecessary re-renders
+- SVG rendering is hardware-accelerated in modern browsers
+- Single shared gradient definition reduces DOM nodes
+
+## Browser Support
+
+Works in all modern browsers that support:
+- SVG 1.1
+- CSS clip-path
+- CSS gradients
+- Framer Motion animations

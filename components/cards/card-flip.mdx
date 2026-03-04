@@ -1,0 +1,91 @@
+---
+title: Card Flip
+description: A 3D card flip animation component that reveals additional content on hover with smooth CSS transitions.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/card-flip"
+```
+
+## Usage
+
+```tsx
+import CardFlip from "@/components/kokonutui/card-flip";
+
+export default function Example() {
+  return (
+    <CardFlip
+      title="Design Systems"
+      subtitle="Explore the fundamentals"
+      description="Dive deep into the world of modern UI/UX design."
+      features={["UI/UX", "Modern Design", "Tailwind CSS", "Kokonut UI"]}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `"Design Systems"` | Main title displayed on both sides |
+| `subtitle` | `string` | `"Explore the fundamentals"` | Subtitle on front of card |
+| `description` | `string` | - | Description shown on back of card |
+| `features` | `string[]` | `["UI/UX", ...]` | List of features shown on back |
+
+## Features
+
+- **3D Flip Animation**: Smooth 180° Y-axis rotation on hover
+- **Perspective Transform**: CSS 3D transforms with preserved 3D space
+- **Animated Background**: Particle-like effect on front side
+- **Staggered Feature List**: Features appear with delay on flip
+- **Dual-sided Content**: Different content on front and back
+- **Gradient Hover States**: Interactive gradient backgrounds
+- **Icon Animations**: Rotating and scaling icon indicators
+
+## Styling
+
+The card uses:
+- `[perspective:2000px]` for 3D depth
+- `[transform-style:preserve-3d]` for child 3D positioning
+- `[backface-visibility:hidden]` to hide non-visible side
+- Custom `@keyframes scale` animation for particles
+
+## Animation Timeline
+
+1. **Initial State**: Front side visible, back side hidden
+2. **On Hover**: Card rotates 180° over 700ms
+3. **Features Appear**: Each feature slides in with 100ms stagger
+4. **Icon Rotation**: Icon rotates and scales simultaneously
+
+## Customization Example
+
+```tsx
+<CardFlip
+  title="Your Product"
+  subtitle="Start your journey"
+  description="Unlock powerful features for your team"
+  features={[
+    "Feature One",
+    "Feature Two",
+    "Feature Three",
+    "Feature Four"
+  ]}
+/>
+```
+
+## Dependencies
+
+- `lucide-react` (ArrowRight, Repeat2 icons)
+- `@/lib/utils` (cn helper)
+
+## Technical Details
+
+- Uses CSS transforms for hardware acceleration
+- Flip state managed with React useState
+- Mouse enter/leave triggers flip
+- Back side content positioned with absolute positioning
+- Orange accent color theme (customizable)

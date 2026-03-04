@@ -1,0 +1,163 @@
+---
+title: Carousel Cards
+description: Horizontal scrolling carousel showcasing experience or product cards with images, ratings, and smooth navigation.
+icon: address-card
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://kokonutui.com/r/carousel-cards"
+```
+
+## Usage
+
+```tsx
+import CarouselCards from "@/components/kokonutui/carousel-cards";
+
+export default function Example() {
+  return <CarouselCards />;
+}
+```
+
+## Components
+
+### ExperienceCard
+
+Individual card component displaying an experience/product.
+
+#### Features
+- Image with hover zoom effect
+- Favorite button overlay
+- Badge labels
+- Star ratings
+- Price display
+- Location and date info
+
+### ExperienceSection
+
+Carousel container with navigation.
+
+#### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | - | Section title |
+| `items` | `ExperienceItem[]` | - | Array of items to display |
+| `viewAllHref` | `string` | `"#"` | Link for "Show all" |
+
+## ExperienceItem Interface
+
+```tsx
+interface ExperienceItem {
+  id: string;
+  title: string;
+  image: string;
+  location: string;
+  price: number;
+  currency?: string;        // Default: "€"
+  rating?: number;
+  reviewCount?: number;
+  badge?: string;          // e.g., "Original", "Popular"
+  date?: string;          // e.g., "Closes May 21"
+}
+```
+
+## Features
+
+- **Smooth Scrolling**: Native smooth scroll behavior
+- **Navigation Buttons**: Left/right chevron controls
+- **Snap Scrolling**: Cards snap to position
+- **Responsive Cards**: 240px mobile, 260px desktop
+- **Hover Effects**: Image zoom and shadow on hover
+- **Hidden Scrollbar**: Clean design without visible scrollbar
+- **Favorite Button**: Heart icon for saving items
+- **Badge System**: Customizable badge labels
+- **Rating Display**: Star icon with review count
+
+## Customization Example
+
+```tsx
+const myExperiences = [
+  {
+    id: "1",
+    title: "Mountain Hiking Adventure",
+    image: "https://example.com/mountain.jpg",
+    location: "Colorado, USA",
+    price: 75,
+    currency: "$",
+    rating: 4.9,
+    reviewCount: 156,
+    badge: "Popular",
+    date: "Available Now"
+  }
+];
+
+// Use in ExperienceSection
+<ExperienceSection
+  title="Mountain Adventures"
+  items={myExperiences}
+  viewAllHref="/experiences/mountains"
+/>
+```
+
+## Scroll Behavior
+
+### Navigation Buttons
+- **Scroll Amount**: 320px per click
+- **Behavior**: Smooth scroll animation
+- **Direction**: Bidirectional (left/right)
+
+### CSS Scrolling
+```css
+scroll-snap-type: x mandatory;
+scroll-behavior: smooth;
+scrollbar-width: none;  /* Firefox */
+-ms-overflow-style: none;  /* IE/Edge */
+```
+
+## Layout
+
+- **Container**: Max width 1760px, centered
+- **Card Width**: 240px (mobile) / 260px (desktop)
+- **Card Height**: 320px fixed
+- **Gap**: 12px between cards
+- **Image Ratio**: 4:3 aspect ratio
+
+## Styling Details
+
+### Card States
+- **Default**: Subtle shadow, border-0
+- **Hover**: Larger shadow, image scale 1.05
+- **Focus**: Ring for keyboard navigation
+
+### Button Styling
+- Rounded full (circular)
+- Icon-only (7x7 size)
+- Outline variant
+- Hover background change
+
+## Sample Data Included
+
+- 7 sample experiences (Airbnb Originals theme)
+- 7 popular experiences (Paris theme)
+- Images from Unsplash
+- Realistic pricing and ratings
+
+## Dependencies
+
+- `@/components/ui/badge` (shadcn)
+- `@/components/ui/button` (shadcn)
+- `@/components/ui/card` (shadcn)
+- `lucide-react` (Heart, Star, ChevronLeft, ChevronRight)
+- `next/image`
+- `next/link`
+
+## Accessibility
+
+- Semantic HTML structure
+- ARIA labels on buttons
+- Keyboard scrolling support
+- Screen reader friendly
+- Focus visible states
+- Alt text on images

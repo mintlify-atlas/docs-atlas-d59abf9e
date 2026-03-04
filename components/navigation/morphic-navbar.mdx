@@ -1,0 +1,94 @@
+---
+title: Morphic Navbar
+description: Dynamic navbar with morphing animation effects between active states
+icon: bars
+---
+
+A navigation bar with smooth morphing animations that dynamically adjusts border radius based on active link position. Creates a fluid, modern navigation experience.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/morphic-navbar
+```
+
+## Usage
+
+```tsx
+import MorphicNavbar from "@/components/kokonutui/morphic-navbar";
+
+export default function Example() {
+  return (
+    <MorphicNavbar />
+  );
+}
+```
+
+## Features
+
+- **Morphing Borders**: Border radius dynamically adjusts based on active link position
+- **Smart Rounding**: Corner rounding logic accounts for adjacent active links
+- **Glass Effect**: Semi-transparent background with blur effect
+- **Dark Mode Support**: Automatically adapts colors for light and dark themes
+- **State Management**: Built-in active state tracking
+- **Smooth Transitions**: CSS transitions for all state changes
+
+## Customization
+
+The component uses a predefined set of navigation items. To customize:
+
+```tsx
+// In the component file, modify the navItems object:
+const navItems = {
+  "/": { name: "home" },
+  "/products": { name: "products" },
+  "/about": { name: "about" },
+  "/contact": { name: "contact" },
+};
+```
+
+## Styling
+
+The navbar uses the following key styles:
+
+- **Glass Effect**: `.glass` class for semi-transparent background
+- **Active State**: Rounded corners and spacing adjustments
+- **Dark Mode**: Inverted colors (black background in light mode, white in dark mode)
+- **Text**: Small font size with smooth color transitions
+
+## Border Logic
+
+The component implements intelligent border rounding:
+
+1. Active link gets fully rounded corners (`rounded-xl`)
+2. Link adjacent to active link rounds only the far edge
+3. First item rounds left edge when first or second item is active
+4. Last item rounds right edge when last or second-to-last item is active
+
+## Example Implementation
+
+```tsx
+import MorphicNavbar from "@/components/kokonutui/morphic-navbar";
+
+export default function Layout({ children }) {
+  return (
+    <div>
+      <MorphicNavbar />
+      <main>{children}</main>
+    </div>
+  );
+}
+```
+
+## Accessibility
+
+- Uses semantic `<nav>` element
+- Proper link structure with Next.js `<Link>`
+- Click handlers update visual state
+- Keyboard navigation supported through standard link behavior
+
+## Dependencies
+
+- `clsx` (conditional class names)
+- `next/link`
+- `react` (useState hook)

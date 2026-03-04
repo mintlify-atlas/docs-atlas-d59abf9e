@@ -1,0 +1,143 @@
+---
+title: AI Input Search
+description: AI input with search mode.
+icon: Globe
+---
+
+#
+
+import AI_Input_Search from "@/components/kokonutui/ai-input-search";
+
+<Preview link="ai-input-search">
+    <AI_Input_Search />
+</Preview>
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/ai-input-search
+```
+
+## Overview
+
+A sleek AI input component with an integrated web search toggle. Perfect for AI applications that combine conversational AI with web search capabilities.
+
+## Features
+
+- Auto-resizing textarea with smooth transitions
+- Animated web search toggle button
+- File attachment support
+- Focus state management
+- Submit on Enter (Shift+Enter for new line)
+- Animated globe icon with rotation effects
+- Expanding "Search" label animation
+- Dark mode support
+
+## Props
+
+This component doesn't expose props - it's a complete demo implementation. Customize by modifying the internal state and handlers.
+
+## Component Structure
+
+### State Management
+
+```typescript
+const [value, setValue] = useState(""); // Input text
+const [showSearch, setShowSearch] = useState(true); // Search mode toggle
+const [isFocused, setIsFocused] = useState(false); // Focus state
+const { textareaRef, adjustHeight } = useAutoResizeTextarea({
+  minHeight: 52,
+  maxHeight: 200,
+});
+```
+
+### Key Features
+
+**Auto-resize**: Textarea automatically grows from 52px to 200px max height.
+
+**Search Toggle**: Animated button that expands/collapses with smooth transitions.
+
+**Focus Management**: Ring indicator changes opacity based on focus state.
+
+## Usage Example
+
+```tsx
+import AI_Input_Search from "@/components/kokonutui/ai-input-search";
+
+export default function SearchPage() {
+  return (
+    <div className="container mx-auto py-8">
+      <AI_Input_Search />
+    </div>
+  );
+}
+```
+
+## Customization
+
+### Change Placeholder
+
+```typescript
+<Textarea
+  placeholder="Ask me anything..."
+  // ... other props
+/>
+```
+
+### Adjust Height Limits
+
+```typescript
+const { textareaRef, adjustHeight } = useAutoResizeTextarea({
+  minHeight: 60,
+  maxHeight: 300,
+});
+```
+
+### Custom Search Icon
+
+Replace the `Globe` icon with your preferred icon:
+
+```tsx
+import { Search } from "lucide-react";
+
+<Search className="w-4 h-4" />
+```
+
+## Animation Details
+
+### Globe Rotation
+
+The globe icon rotates when search is enabled and on hover:
+
+```typescript
+animate={{
+  rotate: showSearch ? 180 : 0,
+  scale: showSearch ? 1.1 : 1,
+}}
+whileHover={{
+  rotate: showSearch ? 180 : 15,
+  scale: 1.1,
+}}
+```
+
+### Label Expansion
+
+The "Search" label smoothly expands/collapses:
+
+```typescript
+initial={{ width: 0, opacity: 0 }}
+animate={{ width: "auto", opacity: 1 }}
+exit={{ width: 0, opacity: 0 }}
+```
+
+## Dependencies
+
+- `lucide-react` - Icons (Globe, Paperclip, Send)
+- `motion` (framer-motion) - Smooth animations
+- `@/components/ui/textarea` - Textarea component
+- `@/hooks/use-auto-resize-textarea` - Auto-resize functionality
+
+## Related Components
+
+- [AI Prompt](/components/ai/ai-prompt) - Full-featured AI prompt with model selection
+- [AI Loading](/components/ai/ai-loading) - Loading state indicator

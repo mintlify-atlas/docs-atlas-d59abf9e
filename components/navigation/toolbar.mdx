@@ -1,0 +1,140 @@
+---
+title: Toolbar
+description: Multi-action toolbar inspired by Figma with expandable buttons and notifications
+icon: bars
+---
+
+A feature-rich toolbar component with expandable buttons, notification system, and toggle functionality. Inspired by design tools like Figma.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/toolbar
+```
+
+## Usage
+
+```tsx
+import { Toolbar } from "@/components/kokonutui/toolbar";
+
+export default function Example() {
+  return (
+    <Toolbar />
+  );
+}
+```
+
+## Props
+
+<ResponseField name="className" type="string">
+  Additional CSS classes to apply to the toolbar container
+</ResponseField>
+
+<ResponseField name="activeColor" type="string" default="text-primary">
+  Color class for the active tool item
+</ResponseField>
+
+<ResponseField name="onSearch" type="(value: string) => void">
+  Callback function for search functionality (reserved for future use)
+</ResponseField>
+
+## Features
+
+- **Expandable Buttons**: Selected tool buttons expand to show label text
+- **Icon Set**: 11 pre-configured tools with Lucide icons
+- **Notification System**: Click feedback with animated notification banner
+- **Toggle Button**: State toggle with Lock/Edit icons
+- **Smooth Animations**: Spring-based transitions for all interactions
+- **Responsive Layout**: Flexbox-based layout that adapts to content
+
+## Toolbar Items
+
+The toolbar includes these default tools:
+
+1. **Select** - MousePointer2 icon
+2. **Move** - Move icon
+3. **Shapes** - Shapes icon
+4. **Layers** - Layers icon
+5. **Frame** - Frame icon
+6. **Properties** - SlidersHorizontal icon
+7. **Export** - FileDown icon
+8. **Share** - Share2 icon
+9. **Notifications** - Bell icon
+10. **Profile** - CircleUserRound icon
+11. **Appearance** - Palette icon
+
+## Animation Details
+
+### Button Expansion
+```typescript
+const buttonVariants = {
+  initial: { gap: 0, paddingLeft: ".5rem", paddingRight: ".5rem" },
+  animate: (isSelected: boolean) => ({
+    gap: isSelected ? ".5rem" : 0,
+    paddingLeft: isSelected ? "1rem" : ".5rem",
+    paddingRight: isSelected ? "1rem" : ".5rem",
+  }),
+};
+```
+
+### Notification Banner
+- Slides down from top with fade-in
+- Shows active tool name
+- Auto-dismisses after 1.5 seconds
+- Includes animated underline
+
+## Example with Custom Handling
+
+```tsx
+import { Toolbar } from "@/components/kokonutui/toolbar";
+
+export default function Example() {
+  return (
+    <div className="p-4">
+      <Toolbar 
+        className="max-w-fit mx-auto"
+        activeColor="text-blue-500"
+      />
+    </div>
+  );
+}
+```
+
+## Customizing Tools
+
+To modify the toolbar items, edit the `toolbarItems` array in the component:
+
+```tsx
+const toolbarItems: ToolbarItem[] = [
+  { id: "custom", title: "Custom Tool", icon: YourIcon },
+  // Add more items...
+];
+```
+
+## State Management
+
+The component manages three internal states:
+
+- `selected`: Currently active tool ID
+- `isToggled`: Toggle button state (On/Off)
+- `activeNotification`: Current notification to display
+
+## Styling
+
+Active tool button styling:
+- Blue background (`bg-[#1F9CFE]`)
+- White text
+- Rounded corners
+- Expanded padding
+
+Inactive tool styling:
+- Muted text color
+- Hover background effect
+- No padding expansion
+
+## Dependencies
+
+- `motion` (Framer Motion)
+- `lucide-react` (all toolbar icons)
+- `react` (useState, useRef hooks)
+- `@/lib/utils` (cn utility)

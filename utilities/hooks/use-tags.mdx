@@ -1,0 +1,224 @@
+---
+title: useTags
+description: A hook for managing tag input state with colors and limits.
+icon: wrench
+---
+
+#
+
+
+A React hook that manages a collection of tags with automatic color assignment, maximum tag limits, and easy add/remove functionality.
+
+## Installation
+
+Manually copy the hook from `/hooks/use-tags.ts` into your project.
+
+## Usage
+
+```tsx
+import { useTags } from "@/hooks/use-tags";
+
+function TagInput() {
+  const { tags, addTag, removeTag, hasReachedMax } = useTags({
+    maxTags: 5,
+  });
+
+  const handleAddTag = () => {
+    addTag({
+      id: Date.now().toString(),
+      label: "New Tag",
+    });
+  };
+
+  return (
+    <div>
+      <div className="flex flex-wrap gap-2">
+        {tags.map(tag => (
+          <div key={tag.id} className={tag.color}>
+            {tag.label}
+            <button onClick={() => removeTag(tag.id)}>×</button>
+          </div>
+        ))}
+      </div>
+      <button onClick={handleAddTag} disabled={hasReachedMax}>
+        Add Tag
+      </button>
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+The hook accepts a configuration object:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `onChange` | `(tags: Tag[]) => void` | `undefined` | Callback fired when tags change |
+| `defaultTags` | `Tag[]` | `[]` | Initial tags |
+| `maxTags` | `number` | `10` | Maximum number of tags allowed |
+| `defaultColors` | `string[]` | See below | Array of Tailwind classes for tag colors |
+
+### Tag Type
+
+```typescript
+interface Tag {
+  id: string;
+  label: string;
+  color?: string;
+}
+```
+
+### Default Colors
+
+The hook includes 5 default color schemes:
+- Blue: `bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300`
+- Purple: `bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300`
+- Green: `bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300`
+- Yellow: `bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300`
+- Red: `bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-900`
+
+### Return Value
+
+Returns an object with:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `tags` | `Tag[]` | Current array of tags |
+| `setTags` | `(tags: Tag[]) => void` | Set tags directly |
+| `addTag` | `(tag: Tag) => Tag[] \| undefined` | Add a new tag, returns updated array or undefined if max reached |
+| `removeTag` | `(tagId: string) => Tag[]` | Remove tag by ID, returns updated array |
+| `removeLastTag` | `() => Tag[] \| undefined` | Remove the last tag |
+| `hasReachedMax` | `boolean` | Whether max tag limit has been reached |
+
+## Features
+
+- **Automatic color cycling** - Colors automatically assigned from default palette
+- **Max tag limit** - Prevents adding more tags than allowed
+- **Change callbacks** - Get notified when tags change
+- **Keyboard support** - `removeLastTag` for backspace handling
+- **Dark mode support** - Default colors include dark mode variants
+
+## Example: Tag Input with Keyboard
+
+```tsx
+function SmartTagInput() {
+  const [input, setInput] = useState("");
+  const { tags, addTag, removeLastTag } = useTags({
+    maxTags: 10,
+    onChange: (tags) => console.log("Tags changed:", tags),
+  });
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && input.trim()) {
+      e.preventDefault();
+      addTag({
+        id: Date.now().toString(),
+        label: input.trim(),
+      });
+      setInput("");
+    } else if (e.key === "Backspace" && !input) {
+      removeLastTag();
+    }
+  };
+
+  return (
+    <div className="flex flex-wrap gap-2 p-2 border rounded">
+      {tags.map(tag => (
+        <span key={tag.id} className={`px-2 py-1 rounded ${tag.color}`}>
+          {tag.label}
+        </span>
+      ))}
+      <input
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        className="flex-1 outline-none"
+        placeholder="Add a tag..."
+      />
+    </div>
+  );
+}
+```
+
+## Example: Custom Colors
+
+```tsx
+function CustomColorTags() {
+  const { tags, addTag } = useTags({
+    defaultColors: [
+      "bg-rose-100 text-rose-700",
+      "bg-sky-100 text-sky-700",
+      "bg-emerald-100 text-emerald-700",
+    ],
+  });
+
+  return (
+    <div>
+      {tags.map(tag => (
+        <span key={tag.id} className={tag.color}>
+          {tag.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+```
+
+## Example: Controlled Tags
+
+```tsx
+function ControlledTags() {
+  const { tags, setTags, addTag, removeTag } = useTags();
+
+  const handleImportTags = () => {
+    setTags([
+      { id: "1", label: "React" },
+      { id: "2", label: "TypeScript" },
+      { id: "3", label: "Tailwind" },
+    ]);
+  };
+
+  const handleClearAll = () => {
+    setTags([]);
+  };
+
+  return (
+    <div>
+      <button onClick={handleImportTags}>Import Tags</button>
+      <button onClick={handleClearAll}>Clear All</button>
+      {/* Render tags */}
+    </div>
+  );
+}
+```
+
+## Use Cases
+
+- Tag input components for forms
+- Category selection interfaces
+- Skill or technology selectors
+- Email recipient chips (like Gmail)
+- Filter tag management
+- Multi-select with visual feedback
+
+## Color Assignment
+
+Colors are assigned automatically in a round-robin fashion:
+- Tag 1: First color
+- Tag 2: Second color
+- Tag 6: First color again (cycles)
+
+You can override by passing a `color` property when adding a tag.
+
+## Notes
+
+- All functions return the updated tags array for chaining
+- `addTag` returns `undefined` if max tags reached
+- `removeLastTag` returns `undefined` if no tags exist
+- Default colors include dark mode support with Tailwind dark: prefix
+- IDs must be unique strings
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";

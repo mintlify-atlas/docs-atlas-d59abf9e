@@ -1,0 +1,62 @@
+---
+title: Hold Button
+description: A button that requires the user to press and hold for a duration before triggering an action, perfect for destructive operations.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/hold-button
+```
+
+## Usage
+
+```tsx
+import HoldButton from "@/components/kokonutui/hold-button";
+
+export default function Example() {
+  return (
+    <div className="flex flex-col gap-2">
+      <HoldButton variant="red" holdDuration={3000} />
+      <HoldButton variant="green" holdDuration={1000} />
+      <HoldButton variant="blue" holdDuration={2000} />
+    </div>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `"red" \| "green" \| "blue" \| "orange" \| "grey"` | `"red"` | Color variant for the button |
+| `holdDuration` | `number` | `3000` | Duration in milliseconds to hold before action completes |
+| `className` | `string` | - | Additional CSS classes |
+
+## Variants
+
+Each variant comes with a matching icon:
+
+- **red** - Trash icon (for delete actions)
+- **green** - Archive icon
+- **blue** - XCircle icon
+- **orange** - AlertCircle icon
+- **grey** - Ban icon
+
+## Dependencies
+
+- `motion/react` (Framer Motion) - For progress bar animation
+- `lucide-react` - For variant icons
+- `class-variance-authority` - For variant styling
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Visual progress indicator while holding
+- Touch-friendly (supports both mouse and touch events)
+- Five color variants for different action types
+- Automatically resets if user releases early
+- Dark mode support
+- Perfect for confirming destructive actions

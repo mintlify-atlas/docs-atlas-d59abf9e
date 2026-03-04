@@ -1,0 +1,61 @@
+---
+title: "Shimmer Text"
+description: "Animated text with a continuous shimmer gradient effect"
+icon: "font"
+---
+
+A text component with an animated shimmer effect that creates a flowing gradient across the text.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/shimmer-text
+```
+
+## Usage
+
+```tsx
+import ShimmerText from "@/components/kokonutui/shimmer-text";
+
+export default function Example() {
+  return (
+    <ShimmerText 
+      text="Text Shimmer" 
+      className="text-5xl"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="text" type="string" default="'Text Shimmer'">
+  The text content to display with shimmer effect
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  Additional CSS classes for styling
+</ParamField>
+
+## Features
+
+- **Gradient Animation**: Smooth horizontal gradient movement
+- **Light/Dark Mode**: Adapts colors for light and dark themes
+- **Customizable**: Apply custom styles via className
+- **Responsive**: Works at any text size
+
+## Customization
+
+The shimmer effect uses a gradient that moves from left to right continuously:
+
+```tsx
+<ShimmerText 
+  text="Custom Shimmer" 
+  className="text-6xl font-extrabold"
+/>
+```
+
+## Dependencies
+
+- `motion/react` - Animation library
+- `@/lib/utils` - cn utility function

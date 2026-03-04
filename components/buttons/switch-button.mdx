@@ -1,0 +1,60 @@
+---
+title: Switch Button
+description: An elegant theme switcher button with smooth transitions and gradient effects.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/switch-button
+```
+
+## Usage
+
+```tsx
+import SwitchButton from "@/components/kokonutui/switch-button";
+
+export default function Example() {
+  return (
+    <div className="flex gap-2">
+      <SwitchButton showLabel={true} size="default" />
+      <SwitchButton showLabel={false} size="sm" />
+    </div>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `"minimal"` | `"minimal"` | Visual style variant (currently only minimal) |
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` | Button size |
+| `showLabel` | `boolean` | `true` | Whether to display "Light"/"Dark" text label |
+| `className` | `string` | - | Additional CSS classes |
+
+## Sizes
+
+- **sm** - Height: 32px (8), Padding: 12px (3)
+- **default** - Height: 40px (10), Padding: 16px (4)
+- **lg** - Height: 44px (11), Padding: 20px (5)
+
+## Dependencies
+
+- `next-themes` - For theme management
+- `lucide-react` - For the Sun icon
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Toggles between light and dark theme
+- Sun icon rotates 360° on theme change
+- Smooth label transition between "Light" and "Dark"
+- Gradient shine effect on hover
+- Layered shadow and border effects
+- Glass morphism design
+- Backdrop blur effect
+- Multiple size options
+- Optional label display

@@ -1,0 +1,61 @@
+---
+title: Gradient Button
+description: A visually stunning button with layered gradient effects and multiple color variants.
+icon: hand-pointer
+---
+
+## Installation
+
+```bash
+npx shadcn@latest add https://kokonutui.com/r/gradient-button
+```
+
+## Usage
+
+```tsx
+import GradientButton from "@/components/kokonutui/gradient-button";
+
+export default function Example() {
+  return (
+    <div className="flex gap-2">
+      <GradientButton label="Emerald" variant="emerald" />
+      <GradientButton label="Purple" variant="purple" />
+      <GradientButton label="Orange" variant="orange" />
+    </div>
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `string` | `"Welcome"` | Text to display on the button |
+| `variant` | `"emerald" \| "purple" \| "orange"` | `"emerald"` | Color scheme variant |
+| `icon` | `string` | `undefined` | Optional icon (currently unused in implementation) |
+| `className` | `string` | - | Additional CSS classes |
+
+## Variants
+
+### Emerald
+Green gradient with glowing effects, perfect for success or primary actions.
+
+### Purple
+Vibrant purple gradient, ideal for creative or premium features.
+
+### Orange
+Warm orange gradient, great for attention-grabbing CTAs.
+
+## Dependencies
+
+- `@/components/ui/button` - Base button component
+- `@/lib/utils` - Utility functions (cn)
+
+## Features
+
+- Multi-layered gradient system
+- Three color variants (emerald, purple, orange)
+- Smooth hover animations
+- Inner glow and shadow effects
+- Full dark mode support
+- Responsive design

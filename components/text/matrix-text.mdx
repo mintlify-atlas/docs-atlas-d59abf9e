@@ -1,0 +1,107 @@
+---
+title: "Matrix Text"
+description: "Matrix-style text reveal animation with binary character transitions"
+icon: "font"
+---
+
+A text component that reveals text with a Matrix-inspired animation, transitioning through binary characters.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/matrix-text
+```
+
+## Usage
+
+```tsx
+import MatrixText from "@/components/kokonutui/matrix-text";
+
+export default function Example() {
+  return (
+    <MatrixText 
+      text="Hello World!" 
+      className="min-h-[200px]"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="text" type="string" default="'HelloWorld!'">
+  The text content to reveal
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  Additional CSS classes for the container
+</ParamField>
+
+<ParamField path="initialDelay" type="number" default="200">
+  Delay before animation starts (ms)
+</ParamField>
+
+<ParamField path="letterAnimationDuration" type="number" default="500">
+  Duration each letter shows binary characters (ms)
+</ParamField>
+
+<ParamField path="letterInterval" type="number" default="100">
+  Delay between animating each letter (ms)
+</ParamField>
+
+## Features
+
+- **Binary Transition**: Each character cycles through 1s and 0s
+- **Sequential Animation**: Letters reveal one by one
+- **Green Glow**: Matrix-style green text with shadow
+- **Monospace Font**: Uses monospace for authentic digital look
+- **Tabular Numbers**: Consistent character width
+
+## How It Works
+
+1. Animation starts after initial delay
+2. Each letter displays random binary characters (0 or 1)
+3. After letterAnimationDuration, reveals actual character
+4. Moves to next letter after letterInterval
+5. Active letters glow green, revealed letters return to normal color
+
+## Customization
+
+### Fast Animation
+
+```tsx
+<MatrixText 
+  text="Quick Reveal" 
+  letterAnimationDuration={300}
+  letterInterval={50}
+  initialDelay={100}
+/>
+```
+
+### Slow Dramatic Effect
+
+```tsx
+<MatrixText 
+  text="Dramatic" 
+  letterAnimationDuration={800}
+  letterInterval={200}
+  initialDelay={500}
+/>
+```
+
+## Styling
+
+The component centers content and uses a monospace font. Customize the container:
+
+```tsx
+<MatrixText 
+  text="Custom Style" 
+  className="min-h-[300px] bg-black p-8"
+/>
+```
+
+## Dependencies
+
+- `motion/react` - Animation library
+- `react` - Hooks (useState, useEffect, useCallback, useMemo)
+- `@/lib/utils` - cn utility function

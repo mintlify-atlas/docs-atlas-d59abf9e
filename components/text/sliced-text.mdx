@@ -1,0 +1,91 @@
+---
+title: "Sliced Text"
+description: "Text that splits horizontally on hover with smooth animation"
+icon: "font"
+---
+
+A text component that creates a slicing effect by splitting the text horizontally on hover.
+
+## Installation
+
+```bash
+npx shadcn@latest add @kokonutui/sliced-text
+```
+
+## Usage
+
+```tsx
+import SlicedText from "@/components/kokonutui/sliced-text";
+
+export default function Example() {
+  return (
+    <SlicedText 
+      text="Sliced Text" 
+      className="text-5xl"
+    />
+  );
+}
+```
+
+## Props
+
+<ParamField path="text" type="string" default="'Sliced Text'">
+  The text content to display
+</ParamField>
+
+<ParamField path="className" type="string" optional>
+  CSS classes for text styling
+</ParamField>
+
+<ParamField path="containerClassName" type="string" optional>
+  CSS classes for the container element
+</ParamField>
+
+<ParamField path="splitSpacing" type="number" default="2">
+  Spacing between split sections (in pixels)
+</ParamField>
+
+## Features
+
+- **Hover Effect**: Text splits on hover
+- **Smooth Animation**: Fast 0.1s transition
+- **Clip Path**: Uses CSS clip-path for clean slicing
+- **Customizable Spacing**: Control gap between slices
+
+## How It Works
+
+1. **Default State**: Text appears split with top and bottom halves slightly separated
+2. **Hover State**: Halves merge together, top half fades out
+3. **Clip Path**: Top half shows upper 50%, bottom half shows lower 50%
+
+## Customization
+
+### Adjust Split Spacing
+
+```tsx
+<SlicedText 
+  text="Wide Gap" 
+  splitSpacing={8}
+  className="text-6xl font-black"
+/>
+```
+
+### Container Styling
+
+```tsx
+<SlicedText 
+  text="Centered" 
+  containerClassName="bg-slate-900 p-8 rounded-lg"
+  className="text-white text-4xl"
+/>
+```
+
+## Animation Variants
+
+- **Top Half**: Clips bottom 50%, moves up, fades on hover
+- **Bottom Half**: Clips top 50%, moves down, stays visible on hover
+
+## Dependencies
+
+- `motion/react` - Animation library
+- `@/lib/utils` - cn utility function

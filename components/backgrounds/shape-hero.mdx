@@ -1,0 +1,231 @@
+---
+title: Shape Hero
+description: A hero section with floating animated geometric shapes and gradient text effects
+icon: "image"
+---
+
+## Overview
+
+Shape Hero is a sophisticated hero section component featuring floating geometric shapes with glass-morphism effects, animated entrances, and beautiful gradient typography. Perfect for landing pages and hero sections.
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+    ```bash
+    npx shadcn@latest add https://kokonutui.com/r/shape-hero
+    ```
+  </Tab>
+  <Tab value="Manual">
+    <Steps>
+      <Step>Install dependencies</Step>
+      ```bash
+      npm install motion
+      ```
+      
+      <Step>Add the Pacifico font</Step>
+      The component uses the Pacifico Google Font. Add it to your Next.js app or update the import to use your preferred font.
+      
+      <Step>Copy the component source</Step>
+      Copy the component code from [shape-hero.tsx](https://github.com/kokonut-labs/kokonutui/blob/main/components/kokonutui/shape-hero.tsx) into your project at `components/kokonutui/shape-hero.tsx`
+      
+      <Step>Update imports</Step>
+      Make sure you have the `cn` utility function from `@/lib/utils`
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title1` | `string` | `"Elevate Your"` | First line of the hero title |
+| `title2` | `string` | `"Digital Vision"` | Second line of the hero title (with gradient) |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import ShapeHero from "@/components/kokonutui/shape-hero";
+
+export default function Page() {
+  return <ShapeHero />;
+}
+```
+
+### Custom Titles
+
+```tsx
+import ShapeHero from "@/components/kokonutui/shape-hero";
+
+export default function Page() {
+  return (
+    <ShapeHero 
+      title1="Transform Your" 
+      title2="Business Today" 
+    />
+  );
+}
+```
+
+### Full Page Example
+
+```tsx
+import ShapeHero from "@/components/kokonutui/shape-hero";
+
+export default function LandingPage() {
+  return (
+    <main>
+      <ShapeHero 
+        title1="Build Faster" 
+        title2="Ship Better" 
+      />
+      
+      {/* Rest of your page content */}
+      <section className="py-20">
+        {/* More sections */}
+      </section>
+    </main>
+  );
+}
+```
+
+## Features
+
+- **8 Floating Shapes**: Strategically positioned geometric rectangles
+- **Glass-Morphism**: Subtle backdrop blur and translucent effects
+- **Staggered Animations**: Each shape animates in with unique timing and rotation
+- **Floating Motion**: Continuous subtle vertical floating animation
+- **Gradient Typography**: Beautiful gradient text effects for the second title
+- **Dark Mode Support**: Optimized colors for both light and dark themes
+- **Custom Font**: Uses Pacifico font for elegant script typography
+- **Responsive Design**: Adapts to all screen sizes
+
+## Shape Configuration
+
+Each shape is created using the `ElegantShape` component with these props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Positioning classes (absolute positioning) |
+| `delay` | `number` | `0` | Animation entrance delay in seconds |
+| `width` | `number` | `400` | Shape width in pixels |
+| `height` | `number` | `100` | Shape height in pixels |
+| `rotate` | `number` | `0` | Rotation angle in degrees |
+| `gradient` | `string` | `"from-white/[0.08]"` | Gradient color (Tailwind class) |
+| `borderRadius` | `number` | `16` | Corner radius in pixels |
+
+## Included Shapes
+
+The component includes 8 pre-configured shapes:
+
+1. **Tall Rectangle** (top-left): Indigo, 300x500px, -8° rotation
+2. **Wide Rectangle** (bottom-right): Rose, 600x200px, 15° rotation
+3. **Square** (middle-left): Violet, 300x300px, 24° rotation
+4. **Small Rectangle** (top-right): Amber, 250x100px, -20° rotation
+5. **Medium Rectangle** (center-right): Emerald, 400x150px, 35° rotation
+6. **Small Square** (bottom-left): Blue, 200x200px, -25° rotation
+7. **Tiny Rectangle** (top-center): Purple, 150x80px, 45° rotation
+8. **Wide Rectangle** (middle): Teal, 450x120px, -12° rotation
+
+## Customization
+
+### Adding More Shapes
+
+```tsx
+<ElegantShape
+  borderRadius={20}
+  className="top-[30%] right-[15%]"
+  delay={1.0}
+  gradient="from-cyan-500/[0.25] dark:from-cyan-500/[0.35]"
+  height={180}
+  rotate={-15}
+  width={320}
+/>
+```
+
+### Changing Colors
+
+Modify the gradient prop to use different Tailwind colors:
+
+```tsx
+gradient="from-red-500/[0.25] dark:from-red-500/[0.35]"
+gradient="from-green-500/[0.25] dark:from-green-500/[0.35]"
+gradient="from-orange-500/[0.25] dark:from-orange-500/[0.35]"
+```
+
+### Adjusting Animation Timing
+
+Edit the `fadeUpVariants` in the component:
+
+```tsx
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,           // Animation duration
+      delay: 0.5 + i * 0.2,  // Stagger timing
+      ease: [0.25, 0.4, 0.25, 1],  // Easing curve
+    },
+  }),
+};
+```
+
+## Animation Details
+
+### Entrance Animation
+- Shapes start above the viewport and rotated
+- Fade in and drop down with easing
+- 2.4 second duration with custom cubic-bezier easing
+- Staggered delays for cascade effect
+
+### Floating Animation
+- Continuous vertical motion (0 → 15px → 0)
+- 12 second duration
+- Infinite loop with easeInOut
+- Creates organic, breathing effect
+
+## Dependencies
+
+- `motion` (Framer Motion) - For all animations
+- `next/font/google` - For Pacifico font loading
+- `react` - Core React features
+- `cn` utility - For className merging (from shadcn/ui)
+
+## Typography
+
+The component uses two different text styles:
+
+1. **Title 1**: Bold sans-serif with black→black/80 gradient
+2. **Title 2**: Pacifico script font with indigo→white→rose gradient
+
+Both titles:
+- Responsive sizing (4xl → 6xl → 8xl)
+- Gradient text via `bg-clip-text`
+- Tight tracking for modern look
+- Fade-up entrance animation
+
+## Accessibility
+
+- Semantic HTML with proper heading hierarchy
+- Decorative shapes don't interfere with screen readers
+- Sufficient text contrast ratios
+- Supports prefers-reduced-motion (via Framer Motion defaults)
+
+## Performance Notes
+
+- Shapes use CSS transforms for GPU acceleration
+- Framer Motion optimizes animations automatically
+- Google Fonts loaded with `next/font` for optimal performance
+- Absolute positioning prevents layout shifts
+
+## Browser Support
+
+Works in all modern browsers that support:
+- CSS backdrop-filter
+- CSS clip-path for text gradients
+- CSS transforms and animations
+- Framer Motion requirements
